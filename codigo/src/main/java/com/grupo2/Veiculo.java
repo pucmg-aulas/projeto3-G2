@@ -38,7 +38,7 @@ public class Veiculo {
 
     }
 
-    public double arrecadadoNoMes() {
+    public double arrecadadoNoMes(int mes) {
 
     }
 
