@@ -1,3 +1,5 @@
+package main.java.com.grupo2;
+
 public class Cliente {
     private String nome;
     private String id;
