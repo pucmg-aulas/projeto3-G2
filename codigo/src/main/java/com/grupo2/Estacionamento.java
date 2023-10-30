@@ -1,3 +1,5 @@
+package main.java.com.grupo2;
+
 public class Estacionamento {
     private String nome;
     private Cliente[] id;

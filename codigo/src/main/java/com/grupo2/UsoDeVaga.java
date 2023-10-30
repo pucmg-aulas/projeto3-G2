@@ -1,3 +1,7 @@
+package main.java.com.grupo2;
+
+import java.time.LocalDateTime;
+
 public class UsoDeVaga {
     static double FRACAO_USO = 0.25;
     static double VALOR_FRACAO = 4.0;
