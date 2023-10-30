@@ -1,39 +1,27 @@
 public class Estacionamento {
     private String nome;
-    private Cliente id[];
-    private Vaga vagas[];
-    private int quantFileiras, vagasPorFileira;
+    private Cliente[] id;
+    private Vaga[] vagas;
+    private int quantFileiras;
+    private int vagasPorFileira;
 
-    public Estacionamento(String nome, Cliente id[], Vaga vagas[], int quantFileiras, int vagasPorFileira){
-        this.nome = nome;
-        this.id = id;
-        this.vagas = vagas;
-        this.quantFileiras = quantFileiras;
-        this.vagasPorFileira = vagasPorFileira;
-    }
+    public Estacionamento(String nome, int fileiras, int vagasPorFileira) {}
 
-    public String getNome(){
-        return this.nome;
-    }
+    public void addVeiculo(Veiculo veiculo, String idCli) {}
 
-    public void setNome(String nome){
-        this.nome = nome;
-    }
+    public void addCliente(Cliente cliente) {}
 
-    public int getQuantFileiras(){
-        return this.quantFileiras;
-    }
+    private void gerarVagas() {}
 
-    public void setQuantFileiras(int quantFileiras){
-        this.quantFileiras = quantFileiras;
-    }
+    public void estacionar(String placa) {}
 
-    public int getVagasPorFileiras(){
-        return this.vagasPorFileira;
-    }
+    public void sair(String placa) {}
 
-    public void setVagasPorFileira(int vagasPorFileira){
-        this.vagasPorFileira = vagasPorFileira;
-    }
-    
+    public double totalArrecadado() {}
+
+    public double arrecadacaoNoMes() {}
+
+    public double valorMedioPorUso() {}
+
+    public String top5Clientes(int mes) {}
 }
