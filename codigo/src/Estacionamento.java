@@ -24,5 +24,4 @@ public class Estacionamento {
     public double valorMedioPorUso() {}
 
     public String top5Clientes(int mes) {}
-
 }
