@@ -1,4 +1,4 @@
-package main.java.com.grupo2;
+package com.grupo2;
 
 public class Cliente {
     private String nome;
