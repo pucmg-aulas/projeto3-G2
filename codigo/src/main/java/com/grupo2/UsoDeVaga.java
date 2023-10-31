@@ -34,4 +34,19 @@ public class UsoDeVaga {
     public void setValorPago(double valorPago){
         this.valorPago = valorPago;
     }
+
+    public double sair(){
+        Duration diferenca = Duration.between(this.entrada, this.saida);
+        long diferencaSegundos = diferenca.getSeconds(); 
+        double diferencaMinutos = (double) segundos / 60.0;
+        return diferencaMinutos;
+    }
+
+    public double valorPago() {
+        double tempo = sair();
+        double valorPago = (tempo / 15) * 4;
+        setValorPago(valorPago);
+        return valorPago;
+    }
 }
+
