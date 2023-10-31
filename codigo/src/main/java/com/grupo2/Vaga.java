@@ -29,4 +29,16 @@ public class Vaga {
     public void setDisponivel(boolean disponivel){
         this.disponivel = disponivel;
     }
+
+    public boolean estacionar(){
+        return setDisponivel(false);
+    }
+
+    public boolean sair(){
+        return setDisponivel(true);
+    }
+
+    public boolean disponivel(){
+        return this.disponivel;
+    }
 }
