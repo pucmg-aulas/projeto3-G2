@@ -1,15 +1,26 @@
 package com.grupo2;
 
+import java.util.ArrayList;
+
 public class Estacionamento {
     private String nome;
-    private Cliente[] id;
-    private Vaga[] vagas;
+    private ArrayList<Cliente> id;
+    private ArrayList<Vaga> vagas;
     private int quantFileiras;
     private int vagasPorFileira;
 
-    public Estacionamento(String nome, int fileiras, int vagasPorFileira) {}
+    public Estacionamento(String nome, int quantFileiras, int vagasPorFileira) {
+        this.nome = nome;
+        this.quantFileiras = quantFileiras;
+        this.vagasPorFileira = vagasPorFileira;
 
-    public void addVeiculo(Veiculo veiculo, String idCli) {}
+        id = new ArrayList<Cliente>();
+        vagas = new ArrayList<Vaga>();
+    }
+
+    public void addVeiculo(Veiculo veiculo, String idCli) throws Exception {
+        if()
+    }
 
     public void addCliente(Cliente cliente) {}
 
