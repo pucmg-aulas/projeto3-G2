@@ -18,23 +18,6 @@ public class Estacionamento {
         vagas = new ArrayList<Vaga>();
     }
 
-    public void addVeiculo(Veiculo veiculo, String idCli) throws Exception {
-        if()
-    }
+    
 
-    public void addCliente(Cliente cliente) {}
-
-    private void gerarVagas() {}
-
-    public void estacionar(String placa) {}
-
-    public void sair(String placa) {}
-
-    public double totalArrecadado() {}
-
-    public double arrecadacaoNoMes() {}
-
-    public double valorMedioPorUso() {}
-
-    public String top5Clientes(int mes) {}
 }
