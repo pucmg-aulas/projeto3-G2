@@ -2,7 +2,7 @@ package com.grupo2;
 
 import java.time.LocalDateTime;
 
-public class UsoDeVaga {
+public class UsoDeVaga implements IEstaciona{
     private static double FRACAO_USO = 0.25;
     private static double VALOR_FRACAO = 4.0;
     private static double VALOR_MAXIMO = 50.0;

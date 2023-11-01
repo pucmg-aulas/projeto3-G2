@@ -2,7 +2,7 @@ package com.grupo2;
 
 import java.util.ArrayList;
 
-public class Veiculo {
+public class Veiculo implements IRelatorio, IEstaciona {
     private String placa;
     private ArrayList<UsoDeVaga> usos = new ArrayList<UsoDeVaga>();
 

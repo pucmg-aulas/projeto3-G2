@@ -2,7 +2,7 @@ package com.grupo2;
 
 import java.util.ArrayList;
 
-public class Cliente {
+public class Cliente implements IRelatorio{
     private String nome;
     private String id;
     private ArrayList<Veiculo> veiculos = new ArrayList<Veiculo>();

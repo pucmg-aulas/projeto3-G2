@@ -1,6 +1,6 @@
 package com.grupo2;
 
-public class Vaga {
+public class Vaga implements IEstaciona{
     public String id;
     public boolean disponivel;
 

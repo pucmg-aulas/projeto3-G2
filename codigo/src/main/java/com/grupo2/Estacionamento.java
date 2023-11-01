@@ -2,7 +2,7 @@ package com.grupo2;
 
 import java.util.ArrayList;
 
-public class Estacionamento {
+public class Estacionamento implements IRelatorio {
     private String nome;
     private ArrayList<Cliente> id;
     private ArrayList<Vaga> vagas;
