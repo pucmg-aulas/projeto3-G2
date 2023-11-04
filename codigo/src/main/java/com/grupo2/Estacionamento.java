@@ -18,6 +18,23 @@ public class Estacionamento implements IRelatorio {
         vagas = new ArrayList<Vaga>();
     }
 
-    
+    public String getNome(){
+        return this.nome;
+    }
 
+    public void setNome(String Nome){
+        this.nome = nome;
+    }
+    public void addVeiculo(Veiculo veiculo, String idCl){
+
+    }
+
+    public void addCliente(Cliente cliente){
+
+    }
+
+    private void gerarVagas(){
+        int quantVagas = 
+        vagas = new ArrayList<Vaga>();  
+    }
 }
