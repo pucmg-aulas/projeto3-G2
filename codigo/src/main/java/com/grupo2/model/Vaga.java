@@ -1,4 +1,4 @@
-package com.grupo2;
+package com.grupo2.model;
 
 public class Vaga implements IEstaciona{
     public String id;
