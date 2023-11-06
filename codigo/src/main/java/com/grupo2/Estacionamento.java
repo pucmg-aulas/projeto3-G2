@@ -2,7 +2,7 @@ package com.grupo2;
 
 import java.util.ArrayList;
 
-public class Estacionamento {
+public class Estacionamento implements IRelatorio {
     private String nome;
     private ArrayList<Cliente> id;
     private ArrayList<Vaga> vagas;
@@ -18,23 +18,23 @@ public class Estacionamento {
         vagas = new ArrayList<Vaga>();
     }
 
-    public void addVeiculo(Veiculo veiculo, String idCli) throws Exception {
-        if()
+    public String getNome(){
+        return this.nome;
     }
 
-    public void addCliente(Cliente cliente) {}
+    public void setNome(String Nome){
+        this.nome = nome;
+    }
+    public void addVeiculo(Veiculo veiculo, String idCl){
 
-    private void gerarVagas() {}
+    }
 
-    public void estacionar(String placa) {}
+    public void addCliente(Cliente cliente){
 
-    public void sair(String placa) {}
+    }
 
-    public double totalArrecadado() {}
-
-    public double arrecadacaoNoMes() {}
-
-    public double valorMedioPorUso() {}
-
-    public String top5Clientes(int mes) {}
+    private void gerarVagas(){
+        int quantVagas = 
+        vagas = new ArrayList<Vaga>();  
+    }
 }
