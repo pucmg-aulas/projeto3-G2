@@ -11,6 +11,13 @@ public class UsoDeVaga implements IEstaciona{
     private LocalDateTime saida;
     private double valorPago;
 
+    public UsoDeVaga(Vaga vaga, LocalDateTime entrada) {
+        this.vaga = vaga;
+        this.entrada = entrada;
+        this.saida = null; 
+        this.valorPago = 0.0; 
+    }
+
     public LocalDateTime getEntrada(){
         return this.entrada;
     }
@@ -40,6 +47,7 @@ public class UsoDeVaga implements IEstaciona{
      *
      * @return O tempo, em minutos, decorrido desde a entrada até a saída do veículo.
      */
+    @Override
     public double sair(){
         Duration diferenca = Duration.between(this.entrada, this.saida);
         long diferencaSegundos = diferenca.getSeconds(); 
@@ -52,6 +60,7 @@ public class UsoDeVaga implements IEstaciona{
      *
      * @return O valor a ser pago pelo estacionamento do veículo.
      */
+    @Override
     public double valorPago() {
         double tempo = sair();
         double valorPago = (tempo / 15) * 4;

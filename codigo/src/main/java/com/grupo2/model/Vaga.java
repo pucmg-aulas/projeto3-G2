@@ -4,6 +4,13 @@ public class Vaga implements IEstaciona{
     public String id;
     public boolean disponivel;
 
+    /**
+     * Construtor da classe Vaga que inicializa uma vaga com base na fila e no número fornecidos e os 
+     * formata de acordo com os parametros indicados para formar o id.
+     * 
+     * @param fila O número da fila da vaga.
+     * @param num O número da vaga.
+     */
     public Vaga(int fila, int num){
         if (num < 10){
             this.id = String.valueOf(fila) + "0" + String.valueOf(num);
@@ -58,4 +65,6 @@ public class Vaga implements IEstaciona{
     public boolean disponivel(){
         return this.disponivel;
     }
+
+
 }

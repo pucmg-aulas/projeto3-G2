@@ -32,7 +32,6 @@ public class Cliente implements IRelatorio{
         
     }
 
-
     /**
      * Verifica se o sistema possui um veículo com a placa especificada.
      *
