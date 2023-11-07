@@ -30,14 +30,31 @@ public class Vaga implements IEstaciona{
         this.disponivel = disponivel;
     }
 
+    /**
+     * Estaciona o veículo, tornando-o indisponível.
+     *
+     * @return true se o veículo foi estacionado com sucesso e agora está indisponível, false caso contrário.
+     */
+    @Override
     public boolean estacionar(){
         return setDisponivel(false);
     }
 
+    /**
+     * Faz o veículo sair do estacionamento, tornando-o disponível.
+     *
+     * @return true se o veículo saiu com sucesso do estacionamento e agora está disponível, false caso contrário.
+     */
+    @Override
     public boolean sair(){
         return setDisponivel(true);
     }
 
+    /**
+     * Verifica se o veículo está disponível.
+     *
+     * @return true se o veículo está disponível, false caso contrário.
+     */
     public boolean disponivel(){
         return this.disponivel;
     }

@@ -35,6 +35,11 @@ public class UsoDeVaga implements IEstaciona{
         this.valorPago = valorPago;
     }
 
+    /**
+     * Calcula o tempo, em minutos, decorrido desde a entrada até a saída do veículo.
+     *
+     * @return O tempo, em minutos, decorrido desde a entrada até a saída do veículo.
+     */
     public double sair(){
         Duration diferenca = Duration.between(this.entrada, this.saida);
         long diferencaSegundos = diferenca.getSeconds(); 
@@ -42,6 +47,11 @@ public class UsoDeVaga implements IEstaciona{
         return diferencaMinutos;
     }
 
+    /**
+     * Calcula o valor a ser pago com base no tempo decorrido e na taxa de estacionamento.
+     *
+     * @return O valor a ser pago pelo estacionamento do veículo.
+     */
     public double valorPago() {
         double tempo = sair();
         double valorPago = (tempo / 15) * 4;
