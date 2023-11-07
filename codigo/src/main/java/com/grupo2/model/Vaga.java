@@ -44,7 +44,7 @@ public class Vaga implements IEstaciona{
      */
     @Override
     public boolean estacionar(){
-        return setDisponivel(false);
+        return false;
     }
 
     /**
@@ -54,7 +54,7 @@ public class Vaga implements IEstaciona{
      */
     @Override
     public boolean sair(){
-        return setDisponivel(true);
+        return true;
     }
 
     /**
