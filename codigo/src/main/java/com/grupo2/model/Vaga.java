@@ -1,8 +1,8 @@
 package com.grupo2.model;
 
-public class Vaga implements IEstaciona{
-    public String id;
-    public boolean disponivel;
+public class Vaga {
+    private String id;
+    private boolean disponivel;
 
     /**
      * Construtor da classe Vaga que inicializa uma vaga com base na fila e no número fornecidos e os 
@@ -29,22 +29,25 @@ public class Vaga implements IEstaciona{
         this.id = id;
     }
 
-    public boolean getDisponivel(){
-        return this.disponivel;
-    }
 
     public void setDisponivel(boolean disponivel){
         this.disponivel = disponivel;
     }
 
     /**
-     * Estaciona o veículo, tornando-o indisponível.
+     * Tenta estacionar um veículo na vaga, tornando-a indisponível.
      *
-     * @return true se o veículo foi estacionado com sucesso e agora está indisponível, false caso contrário.
+     * @return true se o veículo foi estacionado com sucesso (a vaga estava disponível), false caso contrário.
      */
     @Override
     public boolean estacionar(){
-        return false;
+        if (disponivel() == true){
+            setDisponive(false);
+            return true;
+        }else{
+            return false;
+        }
+        
     }
 
     /**
@@ -54,6 +57,7 @@ public class Vaga implements IEstaciona{
      */
     @Override
     public boolean sair(){
+        //retorna se a operação foi realizada ou não e muda o disponivel
         return true;
     }
 

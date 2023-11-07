@@ -26,6 +26,11 @@ public class Veiculo implements IRelatorio, IEstaciona {
         this.usos = usos;
     }
 
+    /**
+     * Obtém o número total de usos registrados para cada veículo no vetor de usos.
+     *
+     * @return O número total de usos registrados para a vaga.
+     */
     public int totalDeUsos() {
         return getUsos().size();
     }
