@@ -15,7 +15,6 @@ public class Estacionamento implements IRelatorio {
         this.vagasPorFileira = vagasPorFileira;
 
         id = new ArrayList<Cliente>();
-        vagas = new ArrayList<Vaga>();
     }
 
     public String getNome(){
@@ -25,6 +24,23 @@ public class Estacionamento implements IRelatorio {
     public void setNome(String Nome){
         this.nome = nome;
     }
+
+    public int getQuantFileiras(){
+        return this.quantFileiras;
+    }
+
+    public void setQuantFileiras(int quantFileiras){
+        this.quantFileiras = quantFileiras;
+    }
+
+    public int getVagasPorFileira(){
+        return this.vagasPorFileira;
+    }
+
+    public void setVagasPorFileira(int vagasPorFileira){
+        this.vagasPorFileira = vagasPorFileira;
+    }
+
     public void addVeiculo(Veiculo veiculo, String idCl){
 
     }
@@ -33,8 +49,42 @@ public class Estacionamento implements IRelatorio {
 
     }
 
+    /**
+     * Gera vagas para o estacionamento com base na quantidade de fileiras e vagas por fileira.
+     * Esta função cria e inicializa uma lista de vagas com base nos parâmetros do estacionamento.
+     */
     private void gerarVagas(){
-        int quantVagas = 
-        vagas = new ArrayList<Vaga>();  
+        int quantVagas = getQuantFileiras()*getVagasPorFileira();
+        ArrayList<Vaga> vagas = new ArrayList<Vaga>(quantVagas);  
     }
+
+    public void estacionar(String placa){
+
+    }
+
+    /*
+    public double sair(String placa){
+
+    } 
+    
+    public double valorMedioPorUso(){
+
+    }
+
+    public String top5Clientes(int mes){
+        
+    }
+    
+    */
+
+    @Override
+    public double arrecadadoNoMes(int mes){
+
+    }
+
+    @Override
+    public double totalArrecadado(){
+        
+    }
+    
 }

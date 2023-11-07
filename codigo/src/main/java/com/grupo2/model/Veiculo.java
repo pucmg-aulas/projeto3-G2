@@ -26,23 +26,29 @@ public class Veiculo implements IRelatorio, IEstaciona {
         this.usos = usos;
     }
 
+    public int totalDeUsos() {
+        return getUsos().size();
+    }
+
+    @Override
     public void estacionar() {
 
     }
 
+    @Override
     public double sair() {
 
     }
 
+    @Override
     public double totalArrecadado() {
 
     }
 
+    @Override
     public double arrecadadoNoMes(int mes) {
 
     }
 
-    public int totalDeUsos() {
-
-    }
+    
 }
