@@ -21,7 +21,7 @@ public class Estacionamento implements IRelatorio {
         return this.nome;
     }
 
-    public void setNome(String Nome){
+    public void setNome(String nome){
         this.nome = nome;
     }
 
@@ -43,10 +43,15 @@ public class Estacionamento implements IRelatorio {
 
     public void addVeiculo(Veiculo veiculo, String idCl){
 
+        for(Cliente cliente: id){
+            if(cliente.getId().equals(idCl)){
+                cliente.addVeiculo(veiculo);
+            }
+        }
     }
 
     public void addCliente(Cliente cliente){
-
+        id.add(cliente);
     }
 
     /**
@@ -60,6 +65,7 @@ public class Estacionamento implements IRelatorio {
 
     public void estacionar(String placa){
 
+
     }
 
     /*
@@ -70,21 +76,50 @@ public class Estacionamento implements IRelatorio {
     public double valorMedioPorUso(){
 
     }
-
-    public String top5Clientes(int mes){
-        
-    }
-    
     */
+
+    // public String top5Clientes(int mes){
+    //     Cliente[] top5 = new Cliente[5];
+    //     Cliente quinto, quarto, terceiro, segundo, primeiro;
+    //     quinto = id.get(0);
+    //     quarto = id.get(0);
+    //     terceiro = id.get(0);
+    //     segundo = id.get(0);
+    //     primeiro = id.get(0);
+
+    //     for(int i = 0; i < id.size(); i++){
+    //         if(id.get(i).arrecadadoNoMes(mes) > quinto.arrecadadoNoMes(mes)){
+    //             if(id.get(i).arrecadadoNoMes(mes) > quarto.arrecadadoNoMes(mes)){
+
+    //             }else{
+    //                 quinto = id.get(i); 
+    //             }
+    //         }
+
+    //         }
+
+    //     }
+    // }
 
     @Override
     public double arrecadadoNoMes(int mes){
+        
+        double valorArrecadado = 0;
+        for(Cliente cliente: id){
+            valorArrecadado += cliente.arrecadadoNoMes(mes);
+        }
 
+        return valorArrecadado;
     }
 
     @Override
     public double totalArrecadado(){
-        
+       double valorArrecadado = 0;
+        for(Cliente cliente: id){
+            valorArrecadado += cliente.totalArrecadado();
+        }
+
+        return valorArrecadado;
     }
     
 }

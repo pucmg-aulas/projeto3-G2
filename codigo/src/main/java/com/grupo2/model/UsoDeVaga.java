@@ -1,6 +1,7 @@
 package com.grupo2.model;
 
 import java.time.LocalDateTime;
+import javax.xml.datatype.Duration;
 
 public class UsoDeVaga implements IEstaciona{
     private static double FRACAO_USO = 0.25;
@@ -66,6 +67,12 @@ public class UsoDeVaga implements IEstaciona{
         double valorPago = (tempo / 15) * 4;
         setValorPago(valorPago);
         return valorPago;
+        
+    }
+
+    @Override
+    public double estacionar() {
+       
     }
 }
 

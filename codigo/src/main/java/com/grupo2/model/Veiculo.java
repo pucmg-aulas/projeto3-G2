@@ -47,7 +47,7 @@ public class Veiculo implements IRelatorio, IEstaciona {
 
     @Override
     public double totalArrecadado() {
-
+        
     }
 
     @Override

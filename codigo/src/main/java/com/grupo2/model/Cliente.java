@@ -29,7 +29,7 @@ public class Cliente implements IRelatorio{
     }
 
     public void addVeiculo(Veiculo veiculo){
-        
+        veiculos.add(veiculo); 
     }
 
     /**
@@ -55,7 +55,7 @@ public class Cliente implements IRelatorio{
     public int totalDeUsos() {
         int usos = 0;
         for (Veiculo veiculo : this.veiculos) {
-            usos += veiculo.totalDeUsos().size();
+            usos += veiculo.totalDeUsos();
         }
         return usos;
     }
@@ -66,7 +66,8 @@ public class Cliente implements IRelatorio{
         return veiculo.totalArrecadado();
     }
 
-    public double arrecadadoTotal(){
+    @Override
+    public double totalArrecadado(){
         // avaliar
         double valorArrecadado = 0;
 
@@ -77,6 +78,7 @@ public class Cliente implements IRelatorio{
         return valorArrecadado;
     }
 
+    @Override
     public double arrecadadoNoMes(int mes){
         //avaliar
         double valorArrecadado = 0;
@@ -86,4 +88,5 @@ public class Cliente implements IRelatorio{
 
         return valorArrecadado;
     }
+
 }
