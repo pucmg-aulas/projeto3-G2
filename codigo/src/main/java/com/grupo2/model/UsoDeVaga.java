@@ -1,9 +1,9 @@
 package com.grupo2.model;
 
 import java.time.LocalDateTime;
-import javax.xml.datatype.Duration;
+import java.time.temporal.ChronoUnit;
 
-public class UsoDeVaga implements IEstaciona{
+public class UsoDeVaga {
     private static double FRACAO_USO = 0.25;
     private static double VALOR_FRACAO = 4.0;
     private static double VALOR_MAXIMO = 50.0;
@@ -44,35 +44,32 @@ public class UsoDeVaga implements IEstaciona{
     }
 
     /**
-     * Calcula o tempo, em minutos, decorrido desde a entrada até a saída do veículo.
-     *
-     * @return O tempo, em minutos, decorrido desde a entrada até a saída do veículo.
-     */
-    @Override
-    public double sair(){
-        Duration diferenca = Duration.between(this.entrada, this.saida);
-        long diferencaSegundos = diferenca.getSeconds(); 
-        double diferencaMinutos = (double) segundos / 60.0;
-        return diferencaMinutos;
-    }
-
-    /**
      * Calcula o valor a ser pago com base no tempo decorrido e na taxa de estacionamento.
      *
      * @return O valor a ser pago pelo estacionamento do veículo.
      */
-    @Override
     public double valorPago() {
-        double tempo = sair();
-        double valorPago = (tempo / 15) * 4;
-        setValorPago(valorPago);
-        return valorPago;
         
+        Long tempo = entrada.until(saida, ChronoUnit.MINUTES);
+        double valorPago = (tempo.doubleValue()) * VALOR_FRACAO;
+
+        if(valorPago <= VALOR_MAXIMO){
+            setValorPago(valorPago);
+            return valorPago;
+        }else{
+            System.out.println("O valor ultrapassa o máximo permitido");
+            return 0;
+        }
     }
 
-    @Override
-    public double estacionar() {
-       
+    /**
+     * Calcula o tempo, em minutos, decorrido desde a entrada até a saída do veículo.
+     *
+     * @return O tempo, em minutos, decorrido desde a entrada até a saída do veículo.
+     */
+    public double sair(){
+        vaga.setDisponivel(true);
+        return valorPago();
     }
 }
 

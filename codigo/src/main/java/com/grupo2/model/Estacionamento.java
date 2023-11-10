@@ -71,35 +71,53 @@ public class Estacionamento implements IRelatorio {
     /*
     public double sair(String placa){
 
-    } 
+    } */
     
-    public double valorMedioPorUso(){
+    public double valorMedioPorUso() {
+        double valor = totalArrecadado();
+        int usos = 0;
 
+        for(Cliente cliente: id){
+            usos += cliente.totalDeUsos();
+        }
+
+        return valor/usos;
     }
-    */
+    
 
-    // public String top5Clientes(int mes){
-    //     Cliente[] top5 = new Cliente[5];
-    //     Cliente quinto, quarto, terceiro, segundo, primeiro;
-    //     quinto = id.get(0);
-    //     quarto = id.get(0);
-    //     terceiro = id.get(0);
-    //     segundo = id.get(0);
-    //     primeiro = id.get(0);
+    public String top5Clientes(int mes){
+        Cliente quinto = id.get(0);
+        Cliente quarto = id.get(0);
+        Cliente terceiro = id.get(0);
+        Cliente segundo = id.get(0);
+        Cliente primeiro = id.get(0);
 
-    //     for(int i = 0; i < id.size(); i++){
-    //         if(id.get(i).arrecadadoNoMes(mes) > quinto.arrecadadoNoMes(mes)){
-    //             if(id.get(i).arrecadadoNoMes(mes) > quarto.arrecadadoNoMes(mes)){
+        for(int i = 0; i < id.size(); i++){
+            if(id.get(i).arrecadadoNoMes(mes) > quinto.arrecadadoNoMes(mes)){
+                if(id.get(i).arrecadadoNoMes(mes) > quarto.arrecadadoNoMes(mes)){
+                    if(id.get(i).arrecadadoNoMes(mes) > terceiro.arrecadadoNoMes(mes)){
+                        if(id.get(i).arrecadadoNoMes(mes) > segundo.arrecadadoNoMes(mes)){
+                            if(id.get(i).arrecadadoNoMes(mes) > primeiro.arrecadadoNoMes(mes) ){
+                                primeiro = id.get(i);
+                            }
+                        }
+                        else{
+                            segundo = id.get(i);
+                        }
+                    }else{
+                        terceiro = id.get(i);
+                    }
+                }else{
+                    quinto = id.get(i); 
+                }
+            }
 
-    //             }else{
-    //                 quinto = id.get(i); 
-    //             }
-    //         }
+            }
+            
+            String top5 = "1- " + primeiro.getNome();
 
-    //         }
-
-    //     }
-    // }
+            return top5;
+    }
 
     @Override
     public double arrecadadoNoMes(int mes){

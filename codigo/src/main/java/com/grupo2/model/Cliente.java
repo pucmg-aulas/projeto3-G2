@@ -28,6 +28,10 @@ public class Cliente implements IRelatorio{
         this.id = id;
     }
 
+    public ArrayList<Veiculo> getVeiculos(){
+        return veiculos;
+    }
+
     public void addVeiculo(Veiculo veiculo){
         veiculos.add(veiculo); 
     }

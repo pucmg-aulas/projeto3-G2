@@ -1,6 +1,6 @@
 package com.grupo2.model;
 
-public class Vaga {
+public class Vaga implements IEstaciona{
     private String id;
     private boolean disponivel;
 
@@ -39,10 +39,11 @@ public class Vaga {
      *
      * @return true se o veículo foi estacionado com sucesso (a vaga estava disponível), false caso contrário.
      */
+
     @Override
     public boolean estacionar(){
         if (disponivel() == true){
-            setDisponive(false);
+            setDisponivel(false);
             return true;
         }else{
             return false;
