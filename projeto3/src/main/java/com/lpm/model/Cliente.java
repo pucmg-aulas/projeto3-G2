@@ -1,38 +1,12 @@
 package com.lpm.model;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Cliente implements Serializable, IEmpacotavel {
+public class Cliente {
     private String nome;
     private String id;
     private ArrayList<Veiculo> veiculos;
-
-    public void gravar() {
-        File arq = new File(".\\projeto3\\db\\");
-        try {
-            arq.delete();
-            arq.createNewFile();
-
-            ObjectOutputStream objOutput = new ObjectOutputStream(new FileOutputStream(arq));
-            objOutput.writeObject(lista);
-            objOutput.close();
-
-        } catch (IOException erro) {
-            System.out.printf("Erro: %s", erro.getMessage());
-        }
-    }
-
-    }
-
-    public void ler() {
-
-    }
 
     public Cliente(String nome, String id) {
         this.nome = nome;

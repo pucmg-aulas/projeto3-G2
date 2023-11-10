@@ -1,17 +1,74 @@
 package com.lpm.model;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Estacionamento {
+public class Estacionamento implements Serializable,  IEmpacotavel {
     private String nome;
     private ArrayList<Cliente> clientes;
     private ArrayList<Vaga> vagas;
     private int quantFileiras;
     private int vagasPorFileira;
 
-    public String getNome() {
-        return nome;
+    @Override
+    public void gerar() {
+        try {
+            File arq = new File(".\\db\\Estacionamento" + nome + ".ser"); // definindo caminho do arquivo
+
+            if(arq.exists()) arq.delete();
+
+            arq.createNewFile();
+
+            ObjectOutputStream objOutput = new ObjectOutputStream(new FileOutputStream(arq)); // criando saida do objeto
+            objOutput.writeObject(this);
+            objOutput.close();
+        } catch (IOException e) {
+            throw new Error("Erro: Objeto nao pode ser serializado");
+        }
+    }
+
+    @Override
+    public void ler() {
+        Estacionamento result;
+        try {
+            File arq = new File(".\\db\\Estacionamento" + nome + ".ser"); // definindo caminho do arquivo
+
+            if(arq.exists()) {
+                ObjectInputStream objOutput = new ObjectInputStream(new FileInputStream(arq));
+                
+                try {
+                    result = (Estacionamento) objOutput.readObject();
+
+                    this.clientes = result.clientes;
+                    this.nome = result.nome;
+                    this.quantFileiras = result.quantFileiras;
+                    this.vagas = result.vagas;
+                    this.vagasPorFileira = result.vagasPorFileira;
+                    gerarVagas();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                
+                objOutput.close();
+            }
+        } catch (IOException e) {
+            throw new Error("Erro: Objeto nao pode ser serializado.\n");
+        }
+    }
+
+    public Estacionamento() {
+        this.clientes = null;
+        this.nome = null;
+        this.quantFileiras = 0;
+        this.vagas = null;
+        this.vagasPorFileira = 0;
     }
 
     public Estacionamento(String nome, int quantFileiras, int vagasPorFileira) {
@@ -25,6 +82,10 @@ public class Estacionamento {
         } else {
             throw new Error("Erro: dimensoes invalidas");
         }
+    }
+
+    public String getNome() {
+        return nome;
     }
 
     public void addVeiculo(Veiculo veiculo, String idCli) {
