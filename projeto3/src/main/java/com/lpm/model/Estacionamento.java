@@ -88,20 +88,20 @@ public class Estacionamento implements Serializable,  IEmpacotavel {
         return nome;
     }
 
-    public void addVeiculo(Veiculo veiculo, String idCli) {
-        Iterator<Cliente> iterator = clientes.iterator();
-        Cliente aux;
-
-        while (iterator.hasNext()) {
-            aux = iterator.next();
-            if (aux.getId().equalsIgnoreCase(idCli)) {
-                aux.addVeiculo(veiculo);
-                break;
-            }
-        }
-
-        throw new Error("Erro: cliente inexistente");
-    }
+//    public void addVeiculo(Veiculo veiculo, String idCli) {
+//        Iterator<Cliente> iterator = clientes.iterator();
+//        Cliente aux;
+//
+//        while (iterator.hasNext()) {
+//            aux = iterator.next();
+//            if (aux.getId().equalsIgnoreCase(idCli)) {
+//                aux.addVeiculo(veiculo);
+//                break;
+//            }
+//        }
+//
+//        throw new Error("Erro: cliente inexistente");
+//    }
 
     public void addCliente(Cliente cliente) {
         if (!clientes.contains(cliente)) {

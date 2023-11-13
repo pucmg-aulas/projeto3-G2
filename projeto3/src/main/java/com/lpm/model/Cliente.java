@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Cliente {
+    private static int proximoId = 0;
+    private final int id;
     private String nome;
-    private String id;
     private ArrayList<Veiculo> veiculos;
 
-    public Cliente(String nome, String id) {
+    public Cliente(String nome) {
         this.nome = nome;
-        this.id = id;
-
+        this.id = proximoId++;
         veiculos = new ArrayList<Veiculo>();
     }
 
@@ -19,7 +19,7 @@ public class Cliente {
         return nome;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
