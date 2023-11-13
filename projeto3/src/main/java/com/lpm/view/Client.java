@@ -20,7 +20,8 @@ public class Client extends JFrame {
 
         add(panel1);
 
-        add(panel1);
+        setVisible(true);
+
         cadastrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

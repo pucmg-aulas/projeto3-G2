@@ -13,9 +13,10 @@ public class RegisterVehicle extends JFrame {
         setSize(400, 300);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setVisible(true);
 
         add(panel1);
+
+        setVisible(true);
     }
 
     public static void main(String[] args) {

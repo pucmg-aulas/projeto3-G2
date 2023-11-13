@@ -1,7 +1,6 @@
 package com.lpm.view;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,12 +11,14 @@ public class Main extends JFrame {
     private JButton clientesButton;
 
     public Main() {
-        setTitle("Xulambs Parking");
+        setTitle("Projeto 3");
         setSize(400, 300);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         add(panel1);
+
+        setVisible(true);
 
         clientesButton.addActionListener(new ActionListener() {
             @Override
@@ -25,8 +26,6 @@ public class Main extends JFrame {
                 new Client().setVisible(true);
             }
         });
-
-        setVisible(true);
     }
 
     public static void main(String[] args) {
