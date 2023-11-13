@@ -16,7 +16,7 @@ public class RegisterClient extends JFrame {
     private JTextField textName;
 
     public RegisterClient() {
-        setTitle("Xulambs Parking - Cliente");
+        setTitle("Xulambs Parking");
         setSize(400, 300);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -33,12 +33,14 @@ public class RegisterClient extends JFrame {
         cadastrarVeiculoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                dispose();
                 new RegisterVehicle().setVisible(true);
             }
         });
     }
 
     private void salvarCliente() {
+        String id = textId.getText();
         String nome = textName.getText();
         String veiculo = textVehicle.getText();
 
@@ -47,7 +49,9 @@ public class RegisterClient extends JFrame {
             return;
         }
 
-//        Cliente cliente = new Cliente(nome, veiculo);
+        Cliente cliente = new Cliente(id, nome, veiculo);
+        estacionamento.adicionarNovoCliente(cliente);
+
 
         JOptionPane.showMessageDialog(this, "Cliente salvo com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         dispose();

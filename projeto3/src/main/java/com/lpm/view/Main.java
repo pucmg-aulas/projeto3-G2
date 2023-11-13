@@ -11,21 +11,22 @@ public class Main extends JFrame {
     private JButton clientesButton;
 
     public Main() {
-        setTitle("Projeto 3");
+        setTitle("Xulambs Parking");
         setSize(400, 300);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         add(panel1);
 
-        setVisible(true);
-
         clientesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                dispose();
                 new Client().setVisible(true);
             }
         });
+
+        setVisible(true);
     }
 
     public static void main(String[] args) {

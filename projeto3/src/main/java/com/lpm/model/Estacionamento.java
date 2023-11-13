@@ -20,7 +20,7 @@ public class Estacionamento implements Serializable,  IEmpacotavel {
     @Override
     public void gerar() {
         try {
-            File arq = new File(".\\db\\Estacionamento" + nome + ".ser"); // definindo caminho do arquivo
+            File arq = new File(".\\db\\" + nome + ".ser"); // definindo caminho do arquivo
 
             if(arq.exists()) arq.delete();
 
