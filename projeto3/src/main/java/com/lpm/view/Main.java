@@ -8,8 +8,8 @@ import java.awt.event.ActionListener;
 
 public class Main extends JFrame {
     private JPanel panel1;
-    private JButton visãoGeralDoEstacionamentoButton;
-    private JButton estatísticasButton;
+    private JButton visaoGeralDoEstacionamentoButton;
+    private JButton estatisticasButton;
     private JButton clientesButton;
 
     public Main() {
