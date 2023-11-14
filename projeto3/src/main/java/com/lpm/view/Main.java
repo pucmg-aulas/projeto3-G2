@@ -1,5 +1,7 @@
 package com.lpm.view;
 
+import com.lpm.model.Estacionamento;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,5 +33,6 @@ public class Main extends JFrame {
 
     public static void main(String[] args) {
         new Main();
+        Estacionamento estacionamento = new Estacionamento();
     }
 }

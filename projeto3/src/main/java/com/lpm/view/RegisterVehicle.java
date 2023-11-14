@@ -1,5 +1,6 @@
 package com.lpm.view;
 
+import com.lpm.model.Estacionamento;
 import com.lpm.model.Veiculo;
 
 import javax.swing.*;
@@ -27,7 +28,7 @@ public class RegisterVehicle extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 cadastrarVeiculo();
                 dispose();
-                new RegisterClient().setVisible(true);
+                new RegisterClient(new Estacionamento()).setVisible(true);
             }
         });
     }
@@ -43,6 +44,7 @@ public class RegisterVehicle extends JFrame {
 
 
         Veiculo novoVeiculo = new Veiculo(placa);
+        System.out.println(novoVeiculo.getPlaca());
 
 
         // Limpa o campo da placa após o cadastro

@@ -64,10 +64,10 @@ public class Estacionamento implements Serializable,  IEmpacotavel {
     }
 
     public Estacionamento() {
-        this.clientes = null;
+        this.clientes = new ArrayList<Cliente>();
         this.nome = null;
         this.quantFileiras = 0;
-        this.vagas = null;
+        this.vagas = new ArrayList<Vaga>();
         this.vagasPorFileira = 0;
     }
 
@@ -81,6 +81,17 @@ public class Estacionamento implements Serializable,  IEmpacotavel {
             gerarVagas();
         } else {
             throw new Error("Erro: dimensoes invalidas");
+        }
+    }
+
+//    Método para imprimir os clientes cadastrados
+    public void printClientes() {
+        Iterator<Cliente> iterator = clientes.iterator();
+        Cliente aux;
+        while(iterator.hasNext()) {
+            aux = iterator.next();
+            System.out.println("Nome: " + aux.getNome() + "\nID: " + aux.getId() + "\nVeiculos: ");
+            aux.printVeiculos();
         }
     }
 
@@ -113,7 +124,7 @@ public class Estacionamento implements Serializable,  IEmpacotavel {
 
     private void gerarVagas() {
         char fileiraAtual = 'A';
-        char numVagaAtual = 0;
+        int numVagaAtual = 0;
         for (int i = 0; i < quantFileiras; i++) {
             for (int j = 0; j < vagasPorFileira; j++) {
                 vagas.add(new Vaga(fileiraAtual, numVagaAtual));

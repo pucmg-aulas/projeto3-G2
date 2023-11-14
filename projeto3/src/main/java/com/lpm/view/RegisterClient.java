@@ -1,6 +1,8 @@
 package com.lpm.view;
 
 import com.lpm.model.Cliente;
+import com.lpm.model.Estacionamento;
+import com.lpm.model.Veiculo;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -15,7 +17,7 @@ public class RegisterClient extends JFrame {
     private JButton salvarButton;
     private JTextField textName;
 
-    public RegisterClient() {
+    public RegisterClient(Estacionamento estacionamento) {
         setTitle("Xulambs Parking");
         setSize(400, 300);
         setLocationRelativeTo(null);
@@ -26,7 +28,7 @@ public class RegisterClient extends JFrame {
         salvarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                salvarCliente();
+                salvarCliente(estacionamento);
             }
         });
 
@@ -39,18 +41,19 @@ public class RegisterClient extends JFrame {
         });
     }
 
-    private void salvarCliente() {
+    private void salvarCliente(Estacionamento estacionamento) {
         String id = textId.getText();
         String nome = textName.getText();
-        String veiculo = textVehicle.getText();
+        Veiculo veiculo = new Veiculo(textVehicle.getText());
 
-        if (nome.isEmpty() || veiculo.isEmpty()) {
+        if (nome.isEmpty() || id.isEmpty() || veiculo.getPlaca().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Preencha todos os campos.", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         Cliente cliente = new Cliente(id, nome, veiculo);
-        estacionamento.adicionarNovoCliente(cliente);
+        estacionamento.addCliente(cliente);
+        estacionamento.printClientes();
 
 
         JOptionPane.showMessageDialog(this, "Cliente salvo com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -59,6 +62,6 @@ public class RegisterClient extends JFrame {
     }
 
     public static void main(String[] args) {
-        new RegisterClient();
+        new RegisterClient(new Estacionamento());
     }
 }

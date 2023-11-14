@@ -8,7 +8,7 @@ public class Cliente {
     private String nome;
     private ArrayList<Veiculo> veiculos;
 
-    public Cliente(String id, String nome, String veiculo) {
+    public Cliente(String id, String nome, Veiculo veiculo) {
         this.id = id;
         this.nome = nome;
         veiculos = new ArrayList<Veiculo>();
@@ -79,5 +79,18 @@ public class Cliente {
         }
 
         return result;
+    }
+
+    public void printVeiculos() {
+        Iterator<Veiculo> iterator = veiculos.iterator();
+        Veiculo aux;
+
+        while (iterator.hasNext()) {
+            aux = iterator.next();
+            System.out.println("Placa: " + aux.getPlaca());
+            System.out.println("Total de usos: " + aux.totalDeUsos());
+            System.out.println("Total arrecadado: " + aux.totalArrecadado());
+            System.out.println("Arrecadado no mes: " + aux.arrecadadoNoMes(1));
+        }
     }
 }

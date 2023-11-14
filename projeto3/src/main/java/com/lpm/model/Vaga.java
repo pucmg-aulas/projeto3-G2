@@ -5,7 +5,7 @@ public class Vaga {
     private boolean disponivel;
 
     public Vaga(char fila, int numero) {
-        if (('A' <= fila && fila <= 'Z') && ('a' <= fila && fila <= 'z') && (numero > 0)) {
+        if (('A' <= fila && fila <= 'Z') && (numero > 0)) {
             id = String.valueOf(fila) + String.valueOf(numero);
         } else {
             throw new Error("Erro: posicoes incorretas");
