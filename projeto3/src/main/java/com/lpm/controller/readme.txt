@@ -1,1 +1,0 @@
-aqui vao os codigos que fazem conexao da view com model
