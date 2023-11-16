@@ -2,9 +2,9 @@ package com.lpm.model;
 
 import java.util.ArrayList;
 
-public interface IEmpacotavel<T> {
+public interface IEmpacotavel {
     
-    public void gerar(ArrayList<T> leituraAtual);
+    public void gerar(ArrayList<String> leituraAtual);
 
-    public ArrayList<T> ler();
+    public ArrayList<String> ler();
 }
