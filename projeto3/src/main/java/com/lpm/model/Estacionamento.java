@@ -1,11 +1,10 @@
 package com.lpm.model;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -18,54 +17,73 @@ public class Estacionamento implements Serializable,  IEmpacotavel {
     private int vagasPorFileira;
 
     @Override
-    public void gerar() {
+    public void gerar(ArrayList<String> estacionamentos) {
+        Iterator<String> iteratorEstacionamentos = estacionamentos.iterator();
         try {
-            File arq = new File(".\\db\\" + nome + ".ser"); // definindo caminho do arquivo
+            File arq = new File(".\\db\\Estacionamentos.csv"); // definindo caminho do arquivo
+            
+            arq.createNewFile(); // garante que o arquivo seja sempre sobrescrevido
 
-            if(arq.exists()) arq.delete();
+            FileWriter fw = new FileWriter(arq); // acessando a escrita no arquivo
 
-            arq.createNewFile();
+            while(iteratorEstacionamentos.hasNext()) {
+                fw.write(iteratorEstacionamentos.next());
+            }
 
-            ObjectOutputStream objOutput = new ObjectOutputStream(new FileOutputStream(arq)); // criando saida do objeto
-            objOutput.writeObject(this);
-            objOutput.close();
+            fw.write(this.nome + "," + this.quantFileiras + "," + this.vagasPorFileira + ",");
+
+            Iterator<Vaga> iteratorVagas = this.vagas.iterator();
+            Vaga auxVaga;
+
+            while(iteratorVagas.hasNext()) {
+                auxVaga = iteratorVagas.next();
+                fw.write(auxVaga.getId() + "_" + auxVaga.disponivel() + ",");
+            }
+
+            fw.close();
         } catch (IOException e) {
             throw new Error("Erro: Objeto nao pode ser serializado");
         }
     }
 
     @Override
-    public void ler() {
-        Estacionamento result;
+    public ArrayList<String> ler() {
+        ArrayList<String> result = new ArrayList<String>();
+        String line;
+        String[] data;
+        boolean auxDisponivel;
         try {
-            File arq = new File(".\\db\\Estacionamento" + nome + ".ser"); // definindo caminho do arquivo
+            BufferedReader br = new BufferedReader(new FileReader(".\\db\\Estacionamentos.csv"));
 
-            if(arq.exists()) {
-                ObjectInputStream objOutput = new ObjectInputStream(new FileInputStream(arq));
-                
-                try {
-                    result = (Estacionamento) objOutput.readObject();
+            while((line = br.readLine())  != null) {
+                result.add(line);
+                data = line.split(",");
 
-                    this.clientes = result.clientes;
-                    this.nome = result.nome;
-                    this.quantFileiras = result.quantFileiras;
-                    this.vagas = result.vagas;
-                    this.vagasPorFileira = result.vagasPorFileira;
-                    gerarVagas();
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
+                if(data[0].equalsIgnoreCase(this.nome)) {
+                    this.quantFileiras = Integer.parseInt(data[1]);
+                    this.vagasPorFileira = Integer.parseInt(data[2]);
+
+                    for(int i = 3; i < data.length; i = i + 2) {
+                        if(data[i+1].equalsIgnoreCase("True")) {
+                            auxDisponivel = true;
+                        } else {
+                            auxDisponivel = false;
+                        }
+                        this.vagas.add(new Vaga(data[i], auxDisponivel));
+                    }
                 }
-                
-                objOutput.close();
             }
+
+            br.close();
+            return result;
         } catch (IOException e) {
             throw new Error("Erro: Objeto nao pode ser serializado.\n");
         }
     }
 
-    public Estacionamento() {
+    public Estacionamento(String nome) {
         this.clientes = new ArrayList<Cliente>();
-        this.nome = null;
+        this.nome = nome;
         this.quantFileiras = 0;
         this.vagas = new ArrayList<Vaga>();
         this.vagasPorFileira = 0;
