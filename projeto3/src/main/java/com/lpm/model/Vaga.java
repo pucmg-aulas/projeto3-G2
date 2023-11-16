@@ -12,6 +12,11 @@ public class Vaga {
         }
     }
 
+    public Vaga(String id, boolean disponivel) {
+        this.id = id;
+        this.disponivel = disponivel;
+    }
+
     public String getId() {
         return id;
     }
