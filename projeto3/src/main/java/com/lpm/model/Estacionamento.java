@@ -5,11 +5,10 @@ import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Estacionamento implements Serializable,  IEmpacotavel {
+public class Estacionamento implements IEmpacotavel {
     private String nome;
     private ArrayList<Cliente> clientes;
     private ArrayList<Vaga> vagas;
@@ -27,18 +26,22 @@ public class Estacionamento implements Serializable,  IEmpacotavel {
             FileWriter fw = new FileWriter(arq); // acessando a escrita no arquivo
 
             while(iteratorEstacionamentos.hasNext()) {
-                fw.write(iteratorEstacionamentos.next());
+                fw.write(iteratorEstacionamentos.next()+"\n"); // guardando os estacionamentos que ja existem
             }
 
-            fw.write(this.nome + "," + this.quantFileiras + "," + this.vagasPorFileira + ",");
+            // guardando estacionamento atual
+
+            fw.write(this.nome + "," + this.quantFileiras + "," + this.vagasPorFileira);
 
             Iterator<Vaga> iteratorVagas = this.vagas.iterator();
             Vaga auxVaga;
 
             while(iteratorVagas.hasNext()) {
                 auxVaga = iteratorVagas.next();
-                fw.write(auxVaga.getId() + "_" + auxVaga.disponivel() + ",");
+                fw.write("," + auxVaga.getId() + "_" + auxVaga.disponivel());
             }
+
+            fw.write("\n");
 
             fw.close();
         } catch (IOException e) {
