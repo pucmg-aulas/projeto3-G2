@@ -94,7 +94,7 @@ public class Cliente {
             System.out.println("Placa: " + aux.getPlaca());
             System.out.println("Total de usos: " + aux.totalDeUsos());
             System.out.println("Total arrecadado: " + aux.totalArrecadado());
-            System.out.println("Arrecadado no mes: " + aux.arrecadadoNoMes(1));
+            System.out.println("Arrecadado no mes: " + aux.arrecadadoNoMes(11));
         }
     }
 }

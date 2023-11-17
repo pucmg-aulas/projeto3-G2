@@ -33,6 +33,6 @@ public class Main extends JFrame {
 
     public static void main(String[] args) {
         new Main();
-        Estacionamento estacionamento = new Estacionamento();
+        //Estacionamento estacionamento = new Estacionamento();
     }
 }

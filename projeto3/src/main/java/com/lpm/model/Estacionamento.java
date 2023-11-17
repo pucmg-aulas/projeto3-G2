@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -15,11 +16,27 @@ public class Estacionamento implements IEmpacotavel {
     private int quantFileiras;
     private int vagasPorFileira;
 
+    public ArrayList<Cliente> getClientes() {
+        return clientes;
+    }
+
+    public ArrayList<Vaga> getVagas() {
+        return vagas;
+    }
+
+    public int getQuantFileiras() {
+        return quantFileiras;
+    }
+
+    public int getVagasPorFileira() {
+        return vagasPorFileira;
+    }
+
     @Override
     public void gerar(ArrayList<String> estacionamentos) {
         Iterator<String> iteratorEstacionamentos = estacionamentos.iterator();
         try {
-            File arq = new File(".\\db\\Estacionamentos.csv"); // definindo caminho do arquivo
+            File arq = new File(".\\db\\estacionamentos.csv"); // definindo caminho do arquivo
 
             arq.createNewFile(); // garante que o arquivo seja sempre sobrescrevido
 
@@ -49,6 +66,8 @@ public class Estacionamento implements IEmpacotavel {
 
             arq = new File(".\\db\\Clientes.csv");
 
+            arq.createNewFile(); // garante que o arquivo seja sempre sobrescrevido
+
             fw = new FileWriter(arq);
 
             Iterator<Cliente> iteratorClientes = this.clientes.iterator();
@@ -65,6 +84,8 @@ public class Estacionamento implements IEmpacotavel {
             // Gerando Veiculos
 
             arq = new File(".\\db\\Veiculos.csv");
+
+            arq.createNewFile(); // garante que o arquivo seja sempre sobrescrevido
 
             fw = new FileWriter(arq);
 
@@ -111,11 +132,13 @@ public class Estacionamento implements IEmpacotavel {
                         
                         while(iteratorUsosDeVaga.hasNext()) {
                             auxUsoDeVaga = iteratorUsosDeVaga.next();
-                            fw.write(this.nome + "," + auxUsoDeVaga.getVaga().getId() + "," + auxVeiculo.getPlaca() + "," + auxUsoDeVaga.getEntrada() + "," + auxUsoDeVaga.getSaida() + "\n");
+                            fw.write(this.nome + "," + auxUsoDeVaga.getVaga().getId() + "," + auxVeiculo.getPlaca() + "," + auxUsoDeVaga.getEntrada().toString() + "," + auxUsoDeVaga.getSaida().toString() + "\n");
                         }
                     }
                 }
             }
+
+            fw.close();
         } catch (IOException e) {
             throw new Error("Erro: Objeto nao pode ser serializado");
         }
@@ -123,37 +146,91 @@ public class Estacionamento implements IEmpacotavel {
 
     @Override
     public ArrayList<String> ler() {
-        ArrayList<String> result = new ArrayList<String>();
-        String line;
-        String[] data;
+        ArrayList<String> estacionamentos = new ArrayList<String>();
+        String line, line2, line3;
+        String[] data, data2, data3, auxSplitVagas;
         boolean auxDisponivel;
         try {
-            BufferedReader br = new BufferedReader(new FileReader(".\\db\\Estacionamentos.csv"));
+            // Leitura Estacionamento
+            BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\projeto3\\db\\estacionamentos.csv"));
 
             while ((line = br.readLine()) != null) {
-                result.add(line);
+                estacionamentos.add(line);
                 data = line.split(",");
 
                 if (data[0].equalsIgnoreCase(this.nome)) {
                     this.quantFileiras = Integer.parseInt(data[1]);
                     this.vagasPorFileira = Integer.parseInt(data[2]);
 
-                    for (int i = 3; i < data.length; i = i + 2) {
-                        if (data[i + 1].equalsIgnoreCase("True")) {
+                    for (int i = 3; i < data.length; i++) {
+                        auxSplitVagas = data[i].split("_");
+                        if (auxSplitVagas[1].equalsIgnoreCase("true")) {
                             auxDisponivel = true;
                         } else {
                             auxDisponivel = false;
                         }
-                        this.vagas.add(new Vaga(data[i], auxDisponivel));
+                        this.vagas.add(new Vaga(auxSplitVagas[0], auxDisponivel));
                     }
                 }
             }
 
             br.close();
-            return result;
+
+            // Leitura Clientes
+
+            br = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\projeto3\\db\\clientes.csv"));
+            BufferedReader br2 = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\projeto3\\db\\veiculos.csv"));
+            BufferedReader br3 = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\projeto3\\db\\usoDeVagas.csv"));
+            ArrayList<Veiculo> auxVeiculos = new ArrayList<Veiculo>();
+            ArrayList<UsoDeVaga> auxUsoDeVagas = new ArrayList<UsoDeVaga>();
+
+            while((line = br.readLine()) != null) {
+                data = line.split(",");
+
+                while ((line2 = br2.readLine()) != null) {
+                    data2 = line2.split(",");
+
+                    if(data2[0].equalsIgnoreCase(data[1])) {
+                        for(int i = 1; i < data2.length; i++) {
+                            while((line3 = br3.readLine()) != null) {
+                                data3 = line3.split(",");
+
+                                if(data3[0].equalsIgnoreCase(this.nome) && data3[2].equalsIgnoreCase(data2[i])) {
+                                    auxUsoDeVagas.add(new UsoDeVaga(buscarVaga(data3[1]), LocalDateTime.parse(data3[3]), LocalDateTime.parse(data3[4])));
+                                }
+                            }
+                            br3.close();
+                            br3 = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\projeto3\\db\\UsoDeVagas.csv"));
+                            auxVeiculos.add(new Veiculo(data2[i], auxUsoDeVagas));
+                            auxUsoDeVagas = new ArrayList<UsoDeVaga>();
+                        }
+                    }
+                }
+                br2.close();
+                br2 = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\projeto3\\db\\Veiculos.csv"));
+                this.clientes.add(new Cliente(data[1], data[0], auxVeiculos));
+                auxVeiculos = new ArrayList<Veiculo>();
+            }
+
+            br.close();
+            return estacionamentos;
         } catch (IOException e) {
-            throw new Error("Erro: Objeto nao pode ser serializado.\n");
+            throw new Error("Erro: Objeto nao pode ser serializado.\n " + e);
         }
+    }
+
+    private Vaga buscarVaga(String id) {
+        Iterator<Vaga> iteratorVagas = this.vagas.iterator();
+        Vaga auxVaga;
+
+        while (iteratorVagas.hasNext()) {
+            auxVaga = iteratorVagas.next();
+            if(auxVaga.getId().equalsIgnoreCase(id)) {
+                return auxVaga;
+            }
+        }
+
+        return null;
     }
 
     public Estacionamento(String nome) {

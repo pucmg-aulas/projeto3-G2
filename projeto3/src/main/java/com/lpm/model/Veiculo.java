@@ -21,6 +21,11 @@ public class Veiculo {
         usos = new ArrayList<UsoDeVaga>();
     }
 
+    public Veiculo(String placa, ArrayList<UsoDeVaga> usos) {
+        this.placa = placa;
+        this.usos = usos;
+    }
+
     public void estacionar(Vaga vaga) {
         try {
             UsoDeVaga registroUso = new UsoDeVaga(vaga);

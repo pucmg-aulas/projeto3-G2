@@ -28,7 +28,7 @@ public class RegisterVehicle extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 cadastrarVeiculo();
                 dispose();
-                new RegisterClient(new Estacionamento()).setVisible(true);
+                //new RegisterClient(new Estacionamento()).setVisible(true);
             }
         });
     }

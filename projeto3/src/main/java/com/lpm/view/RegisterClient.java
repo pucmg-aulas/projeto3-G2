@@ -51,8 +51,8 @@ public class RegisterClient extends JFrame {
             return;
         }
 
-        Cliente cliente = new Cliente(id, nome, veiculo);
-        estacionamento.addCliente(cliente);
+        //Cliente cliente = new Cliente(id, nome, veiculo);
+        //estacionamento.addCliente(cliente);
         estacionamento.printClientes();
 
 
@@ -62,6 +62,6 @@ public class RegisterClient extends JFrame {
     }
 
     public static void main(String[] args) {
-        new RegisterClient(new Estacionamento());
+        //new RegisterClient(new Estacionamento());
     }
 }

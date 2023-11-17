@@ -27,7 +27,7 @@ public class Client extends JFrame {
         cadastrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new RegisterClient(new Estacionamento()).setVisible(true);
+                //new RegisterClient(new Estacionamento()).setVisible(true);
             }
         });
     }

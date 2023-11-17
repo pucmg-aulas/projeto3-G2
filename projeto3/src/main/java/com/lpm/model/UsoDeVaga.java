@@ -57,7 +57,7 @@ public class UsoDeVaga {
         if (saida != null) {
             tempoTotal = ChronoUnit.HOURS.between(entrada, saida);
 
-            precoEstimado = VALOR_FRACAO * (tempoTotal / (60 * FRACAO_USO));
+            precoEstimado = VALOR_FRACAO * (tempoTotal / FRACAO_USO);
 
             if (precoEstimado <= VALOR_MAXIMO) {
                 return precoEstimado;
