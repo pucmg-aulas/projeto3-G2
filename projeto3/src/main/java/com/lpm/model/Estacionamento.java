@@ -20,13 +20,13 @@ public class Estacionamento implements IEmpacotavel {
         Iterator<String> iteratorEstacionamentos = estacionamentos.iterator();
         try {
             File arq = new File(".\\db\\Estacionamentos.csv"); // definindo caminho do arquivo
-            
+
             arq.createNewFile(); // garante que o arquivo seja sempre sobrescrevido
 
             FileWriter fw = new FileWriter(arq); // acessando a escrita no arquivo
 
-            while(iteratorEstacionamentos.hasNext()) {
-                fw.write(iteratorEstacionamentos.next()+"\n"); // guardando os estacionamentos que ja existem
+            while (iteratorEstacionamentos.hasNext()) {
+                fw.write(iteratorEstacionamentos.next() + "\n"); // guardando os estacionamentos que ja existem
             }
 
             // guardando estacionamento atual
@@ -36,7 +36,7 @@ public class Estacionamento implements IEmpacotavel {
             Iterator<Vaga> iteratorVagas = this.vagas.iterator();
             Vaga auxVaga;
 
-            while(iteratorVagas.hasNext()) {
+            while (iteratorVagas.hasNext()) {
                 auxVaga = iteratorVagas.next();
                 fw.write("," + auxVaga.getId() + "_" + auxVaga.disponivel());
             }
@@ -44,6 +44,78 @@ public class Estacionamento implements IEmpacotavel {
             fw.write("\n");
 
             fw.close();
+
+            // Gerando Clientes
+
+            arq = new File(".\\db\\Clientes.csv");
+
+            fw = new FileWriter(arq);
+
+            Iterator<Cliente> iteratorClientes = this.clientes.iterator();
+            Cliente auxCliente;
+
+            while (iteratorClientes.hasNext()) {
+                auxCliente = iteratorClientes.next();
+
+                fw.write(auxCliente.getNome() + "," + auxCliente.getId() + "\n");
+            }
+
+            fw.close();
+
+            // Gerando Veiculos
+
+            arq = new File(".\\db\\Veiculos.csv");
+
+            fw = new FileWriter(arq);
+
+            iteratorClientes = this.clientes.iterator();
+            Iterator<Veiculo> iteratorVeiculos;
+
+            while (iteratorClientes.hasNext()) {
+                auxCliente = iteratorClientes.next();
+
+                if (!auxCliente.getVeiculos().isEmpty()) {
+                    fw.write(auxCliente.getId());
+
+                    iteratorVeiculos = auxCliente.getVeiculos().iterator();
+
+                    while (iteratorVeiculos.hasNext()) {
+                        fw.write("," + iteratorVeiculos.next().getPlaca());
+                    }
+                }
+                fw.write("\n");
+            }
+
+            fw.close();
+
+            // Gerando UsoDeVagas
+
+            arq = new File(".\\db\\UsoDeVagas.csv");
+
+            fw = new FileWriter(arq);
+
+            iteratorClientes = this.clientes.iterator();
+            Veiculo auxVeiculo;
+            UsoDeVaga auxUsoDeVaga;
+            Iterator<UsoDeVaga> iteratorUsosDeVaga;
+
+            while (iteratorClientes.hasNext()) {
+                auxCliente = iteratorClientes.next();
+
+                if (!auxCliente.getVeiculos().isEmpty()) {
+                    iteratorVeiculos = auxCliente.getVeiculos().iterator();
+
+                    while (iteratorVeiculos.hasNext()) {
+                        auxVeiculo = iteratorVeiculos.next();
+                        iteratorUsosDeVaga = auxVeiculo.getUsos().iterator();
+                        
+                        while(iteratorUsosDeVaga.hasNext()) {
+                            auxUsoDeVaga = iteratorUsosDeVaga.next();
+                            fw.write(this.nome + "," + auxUsoDeVaga.getVaga().getId() + "," + auxVeiculo.getPlaca() + "," + auxUsoDeVaga.getEntrada() + "," + auxUsoDeVaga.getSaida() + "\n");
+                        }
+                    }
+                }
+            }
         } catch (IOException e) {
             throw new Error("Erro: Objeto nao pode ser serializado");
         }
@@ -58,16 +130,16 @@ public class Estacionamento implements IEmpacotavel {
         try {
             BufferedReader br = new BufferedReader(new FileReader(".\\db\\Estacionamentos.csv"));
 
-            while((line = br.readLine())  != null) {
+            while ((line = br.readLine()) != null) {
                 result.add(line);
                 data = line.split(",");
 
-                if(data[0].equalsIgnoreCase(this.nome)) {
+                if (data[0].equalsIgnoreCase(this.nome)) {
                     this.quantFileiras = Integer.parseInt(data[1]);
                     this.vagasPorFileira = Integer.parseInt(data[2]);
 
-                    for(int i = 3; i < data.length; i = i + 2) {
-                        if(data[i+1].equalsIgnoreCase("True")) {
+                    for (int i = 3; i < data.length; i = i + 2) {
+                        if (data[i + 1].equalsIgnoreCase("True")) {
                             auxDisponivel = true;
                         } else {
                             auxDisponivel = false;
@@ -105,11 +177,11 @@ public class Estacionamento implements IEmpacotavel {
         }
     }
 
-//    Método para imprimir os clientes cadastrados
+    // Método para imprimir os clientes cadastrados
     public void printClientes() {
         Iterator<Cliente> iterator = clientes.iterator();
         Cliente aux;
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             aux = iterator.next();
             System.out.println("Nome: " + aux.getNome() + "\nID: " + aux.getId() + "\nVeiculos: ");
             aux.printVeiculos();
@@ -120,20 +192,20 @@ public class Estacionamento implements IEmpacotavel {
         return nome;
     }
 
-//    public void addVeiculo(Veiculo veiculo, String idCli) {
-//        Iterator<Cliente> iterator = clientes.iterator();
-//        Cliente aux;
-//
-//        while (iterator.hasNext()) {
-//            aux = iterator.next();
-//            if (aux.getId().equalsIgnoreCase(idCli)) {
-//                aux.addVeiculo(veiculo);
-//                break;
-//            }
-//        }
-//
-//        throw new Error("Erro: cliente inexistente");
-//    }
+    // public void addVeiculo(Veiculo veiculo, String idCli) {
+    // Iterator<Cliente> iterator = clientes.iterator();
+    // Cliente aux;
+    //
+    // while (iterator.hasNext()) {
+    // aux = iterator.next();
+    // if (aux.getId().equalsIgnoreCase(idCli)) {
+    // aux.addVeiculo(veiculo);
+    // break;
+    // }
+    // }
+    //
+    // throw new Error("Erro: cliente inexistente");
+    // }
 
     public void addCliente(Cliente cliente) {
         if (!clientes.contains(cliente)) {
@@ -211,7 +283,7 @@ public class Estacionamento implements IEmpacotavel {
         Iterator<Cliente> iterator = clientes.iterator();
         double result = 0.0;
 
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             result = result + iterator.next().arrecadadoTotal();
         }
 
@@ -222,7 +294,7 @@ public class Estacionamento implements IEmpacotavel {
         Iterator<Cliente> iterator = clientes.iterator();
         double result = 0.0;
 
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             result = result + iterator.next().arrecadadoNoMes(mes);
         }
 
@@ -233,11 +305,11 @@ public class Estacionamento implements IEmpacotavel {
         Iterator<Cliente> iterator = clientes.iterator();
         int totalUsos = 0;
 
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             totalUsos = totalUsos + iterator.next().totalDeUsos();
         }
 
-        return (totalArrecadado()/totalUsos);
+        return (totalArrecadado() / totalUsos);
     }
 
     public String top5Clientes(int mes) {
@@ -247,27 +319,27 @@ public class Estacionamento implements IEmpacotavel {
         Cliente tempCliente;
         String result = "";
 
-        if(tamClientes >= 5) {
+        if (tamClientes >= 5) {
             Iterator<Cliente> iterator = copiaClientes.iterator();
             double[] aux = new double[tamClientes];
 
-            while(iterator.hasNext()) {
+            while (iterator.hasNext()) {
                 aux[i] = iterator.next().arrecadadoNoMes(mes);
                 i++;
             }
 
-            for(i = 0; i < tamClientes-1; i++) {
-                if(aux[i] < aux[i+1]) {
+            for (i = 0; i < tamClientes - 1; i++) {
+                if (aux[i] < aux[i + 1]) {
                     tempValor = aux[i];
                     tempCliente = copiaClientes.get(i);
-                    aux[i] = aux[i+1];
-                    copiaClientes.set(i, copiaClientes.get(i+1));
-                    aux[i+1] = tempValor;
-                    copiaClientes.set(i+1, tempCliente);
+                    aux[i] = aux[i + 1];
+                    copiaClientes.set(i, copiaClientes.get(i + 1));
+                    aux[i + 1] = tempValor;
+                    copiaClientes.set(i + 1, tempCliente);
                 }
             }
 
-            for(i = 0; i < 5; i++) {
+            for (i = 0; i < 5; i++) {
                 result.concat("-" + copiaClientes.get(i).getNome() + " R$" + aux[i]);
             }
 

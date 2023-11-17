@@ -22,6 +22,10 @@ public class Cliente {
         return id;
     }
 
+    public ArrayList<Veiculo> getVeiculos() {
+        return veiculos;
+    }
+
     public void addVeiculo(Veiculo veiculo) {
         if (!veiculos.contains(veiculo)) {
             veiculos.add(veiculo);
