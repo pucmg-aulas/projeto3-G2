@@ -12,7 +12,6 @@ public class UsoDeVaga {
     private Vaga vaga;
     private LocalDateTime entrada;
     private LocalDateTime saida;
-    private double valorPago;
 
     public LocalDateTime getEntrada() {
         return entrada;
@@ -37,6 +36,12 @@ public class UsoDeVaga {
         }
     }
 
+    public UsoDeVaga(Vaga vaga, LocalDateTime entrada, LocalDateTime saida) {
+        this.vaga = vaga;
+        this.entrada = entrada;
+        this.saida = saida;
+    }
+
     public boolean sair() {
         saida = LocalDateTime.now();
 
@@ -55,15 +60,13 @@ public class UsoDeVaga {
             precoEstimado = VALOR_FRACAO * (tempoTotal / (60 * FRACAO_USO));
 
             if (precoEstimado <= VALOR_MAXIMO) {
-                valorPago = precoEstimado;
+                return precoEstimado;
             } else {
-                valorPago = VALOR_MAXIMO;
+                return VALOR_MAXIMO;
             }
         } else {
             throw new Error("Erro: o ocupante ainda nao saiu da vaga.");
         }
-
-        return valorPago;
     }
 
 }
