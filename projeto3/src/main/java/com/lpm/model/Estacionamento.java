@@ -36,7 +36,7 @@ public class Estacionamento implements IEmpacotavel {
     public void gerar(ArrayList<String> estacionamentos) {
         Iterator<String> iteratorEstacionamentos = estacionamentos.iterator();
         try {
-            File arq = new File(".\\db\\estacionamentos.csv"); // definindo caminho do arquivo
+            File arq = new File(System.getProperty("user.dir") + "\\projeto3\\db\\estacionamentos.csv"); // definindo caminho do arquivo
 
             arq.createNewFile(); // garante que o arquivo seja sempre sobrescrevido
 
@@ -64,7 +64,7 @@ public class Estacionamento implements IEmpacotavel {
 
             // Gerando Clientes
 
-            arq = new File(".\\db\\Clientes.csv");
+            arq = new File(System.getProperty("user.dir") + "\\projeto3\\db\\Clientes.csv");
 
             arq.createNewFile(); // garante que o arquivo seja sempre sobrescrevido
 
@@ -83,7 +83,7 @@ public class Estacionamento implements IEmpacotavel {
 
             // Gerando Veiculos
 
-            arq = new File(".\\db\\Veiculos.csv");
+            arq = new File(System.getProperty("user.dir") + "\\projeto3\\db\\Veiculos.csv");
 
             arq.createNewFile(); // garante que o arquivo seja sempre sobrescrevido
 
@@ -111,7 +111,7 @@ public class Estacionamento implements IEmpacotavel {
 
             // Gerando UsoDeVagas
 
-            arq = new File(".\\db\\UsoDeVagas.csv");
+            arq = new File(System.getProperty("user.dir") + "\\projeto3\\db\\UsoDeVagas.csv");
 
             fw = new FileWriter(arq);
 
@@ -146,7 +146,7 @@ public class Estacionamento implements IEmpacotavel {
 
     @Override
     public ArrayList<String> ler() {
-        ArrayList<String> estacionamentos = new ArrayList<String>();
+        ArrayList<String> outrosEstacionamentos = new ArrayList<String>();
         String line, line2, line3;
         String[] data, data2, data3, auxSplitVagas;
         boolean auxDisponivel;
@@ -155,7 +155,6 @@ public class Estacionamento implements IEmpacotavel {
             BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\projeto3\\db\\estacionamentos.csv"));
 
             while ((line = br.readLine()) != null) {
-                estacionamentos.add(line);
                 data = line.split(",");
 
                 if (data[0].equalsIgnoreCase(this.nome)) {
@@ -171,6 +170,8 @@ public class Estacionamento implements IEmpacotavel {
                         }
                         this.vagas.add(new Vaga(auxSplitVagas[0], auxDisponivel));
                     }
+                } else {
+                    outrosEstacionamentos.add(line);
                 }
             }
 
@@ -213,7 +214,7 @@ public class Estacionamento implements IEmpacotavel {
             }
 
             br.close();
-            return estacionamentos;
+            return outrosEstacionamentos;
         } catch (IOException e) {
             throw new Error("Erro: Objeto nao pode ser serializado.\n " + e);
         }

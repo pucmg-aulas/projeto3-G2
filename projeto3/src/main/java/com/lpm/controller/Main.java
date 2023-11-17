@@ -1,6 +1,8 @@
 package com.lpm.controller;
 
-import com.lpm.model.Estacionamento;
+import java.util.ArrayList;
+
+import com.lpm.model.*;
 
 public class Main {
 
@@ -11,8 +13,15 @@ public class Main {
 
         Estacionamento estacionamentoAtual = new Estacionamento(nomeLido);
 
-        estacionamentoAtual.ler();
+        ArrayList<String> estacionamentosSistema = estacionamentoAtual.ler();
 
         estacionamentoAtual.printClientes();
+
+        ArrayList<Veiculo> veiculosJohn = new ArrayList<Veiculo>();
+        veiculosJohn.add(new Veiculo("NER-9416"));
+
+        estacionamentoAtual.addCliente(new Cliente("03", "John Doe", veiculosJohn));
+
+        estacionamentoAtual.gerar(estacionamentosSistema);
     }
 }
