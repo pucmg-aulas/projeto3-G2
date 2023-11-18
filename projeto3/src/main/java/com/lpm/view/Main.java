@@ -12,7 +12,7 @@ public class Main extends JFrame {
     private JButton estatisticasButton;
     private JButton clientesButton;
 
-    public Main() {
+    public Main(Estacionamento estacionamentoAtual) {
         setTitle("Xulambs Parking");
         setSize(400, 300);
         setLocationRelativeTo(null);
@@ -29,10 +29,5 @@ public class Main extends JFrame {
         });
 
         setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        new Main();
-        //Estacionamento estacionamento = new Estacionamento();
     }
 }

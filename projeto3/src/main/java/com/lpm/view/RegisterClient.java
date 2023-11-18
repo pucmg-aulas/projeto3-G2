@@ -58,7 +58,7 @@ public class RegisterClient extends JFrame {
 
         JOptionPane.showMessageDialog(this, "Cliente salvo com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         dispose();
-        new Main().setVisible(true);
+        //new Main().setVisible(true);
     }
 
     public static void main(String[] args) {
