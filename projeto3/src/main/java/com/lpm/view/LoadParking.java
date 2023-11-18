@@ -23,6 +23,7 @@ public class LoadParking extends JFrame {
         controller = new LoadParkingController(this);
 
         button1.addActionListener(e -> {
+            dispose();
             new Main(controller.carregarEstacionamento());
         });
     }
