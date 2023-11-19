@@ -13,9 +13,11 @@ public class Client extends JFrame {
     private JPanel panel1;
     private JButton removerButton;
     private JButton listagemButton;
+    private JLabel labelClientes;
 
-    public Client() {
+    public Client(Estacionamento estacionamentoAtual) {
         setTitle("Xulambs Parking");
+        labelClientes.setText("Clientes (" + estacionamentoAtual.getNome() + ")");
         setSize(400, 300);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -27,13 +29,15 @@ public class Client extends JFrame {
         cadastrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //new RegisterClient(new Estacionamento()).setVisible(true);
+                new RegisterClient(estacionamentoAtual).setVisible(true);
+            }
+        });
+
+        listagemButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
     }
-
-    public static void main(String[] args) {
-        new Client();
-    }
-
 }

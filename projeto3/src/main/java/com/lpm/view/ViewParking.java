@@ -35,7 +35,7 @@ public class ViewParking extends JFrame {
 
     private JPanel criarVaga(Vaga vaga) {
         JPanel result = new JPanel();
-        result.setPreferredSize(new Dimension(50, 50)); // Tamanho da vaga
+        result.setPreferredSize(new Dimension(25, 25)); // Tamanho da vaga
 
         if(vaga.disponivel()) {
             result.setBackground(Color.GREEN); // Caso disponivel, vaga setada para green
