@@ -20,6 +20,13 @@ public class Main extends JFrame {
 
         add(panel1);
 
+        visaoGeralDoEstacionamentoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new ViewParking(estacionamentoAtual).setVisible(true);
+            }
+        });
         clientesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
