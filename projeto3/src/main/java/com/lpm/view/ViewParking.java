@@ -8,6 +8,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class ViewParking extends JFrame {
     private JLabel nomeEstacionamento;
@@ -20,7 +22,7 @@ public class ViewParking extends JFrame {
         nomeEstacionamento.setText(estacionamentoAtual.getNome());
         setTitle(estacionamentoAtual.getNome());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(600, 300);
+        setSize(250, 200);
         setLocationRelativeTo(null);
 
         JPanel painelVagas = new JPanel(new GridLayout(estacionamentoAtual.getQuantFileiras(), estacionamentoAtual.getVagasPorFileira()));
@@ -53,6 +55,33 @@ public class ViewParking extends JFrame {
         result.setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Borda preta para destacar as vagas
 
         result.add(new JLabel(vaga.getId()), SwingConstants.CENTER);
+
+        result.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
 
         return result;
     }
