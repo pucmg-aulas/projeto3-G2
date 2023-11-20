@@ -24,7 +24,7 @@ public class LoadParking extends JFrame {
 
         button1.addActionListener(e -> {
             dispose();
-            new Main(controller.carregarEstacionamento());
+            new HomeScreen(controller.carregarEstacionamento());
         });
     }
 

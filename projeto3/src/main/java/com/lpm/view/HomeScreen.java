@@ -6,13 +6,13 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Main extends JFrame {
+public class HomeScreen extends JFrame {
     private JPanel panel1;
     private JButton visaoGeralDoEstacionamentoButton;
     private JButton estatisticasButton;
     private JButton clientesButton;
 
-    public Main(Estacionamento estacionamentoAtual) {
+    public HomeScreen(Estacionamento estacionamentoAtual) {
         setTitle("Xulambs Parking");
         setSize(400, 300);
         setLocationRelativeTo(null);

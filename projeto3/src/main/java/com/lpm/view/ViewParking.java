@@ -6,31 +6,38 @@ import com.lpm.model.Vaga;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ViewParking extends JFrame {
     private JLabel nomeEstacionamento;
-    private JPanel painelPrincipal;
+    private JButton btnReturn;
     private ViewParkingController controller;
 
-    public ViewParking(Estacionamento estacionamento) {
+    public ViewParking(Estacionamento estacionamentoAtual) {
         int counter = 0;
-        controller = new ViewParkingController(this, estacionamento);
-        nomeEstacionamento.setText(estacionamento.getNome());
-
-        setTitle(estacionamento.getNome());
+        controller = new ViewParkingController(this, estacionamentoAtual);
+        nomeEstacionamento.setText(estacionamentoAtual.getNome());
+        setTitle(estacionamentoAtual.getNome());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(600, 300);
         setLocationRelativeTo(null);
 
-        JPanel painelVagas = new JPanel(new GridLayout(estacionamento.getQuantFileiras(), estacionamento.getVagasPorFileira()));
+        JPanel painelVagas = new JPanel(new GridLayout(estacionamentoAtual.getQuantFileiras(), estacionamentoAtual.getVagasPorFileira()));
 
-        for(int i = 0; i < estacionamento.getQuantFileiras(); i++) {
-            for(int j = 0; j < estacionamento.getVagasPorFileira(); j++) {
+        for(int i = 0; i < estacionamentoAtual.getQuantFileiras(); i++) {
+            for(int j = 0; j < estacionamentoAtual.getVagasPorFileira(); j++) {
                 painelVagas.add(criarVaga(controller.getVagas().get(counter)));
                 counter++;
             }
         }
         add(painelVagas);
+        btnReturn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new HomeScreen(estacionamentoAtual);
+            }
+        });
     }
 
     private JPanel criarVaga(Vaga vaga) {
