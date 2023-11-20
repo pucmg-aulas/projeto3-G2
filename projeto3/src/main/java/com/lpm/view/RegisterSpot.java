@@ -30,7 +30,7 @@ public class RegisterSpot extends JFrame{
         btnConfirmar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.registrar();
+                controller.registrar(vaga, textFieldPlaca.getText());
             }
         });
     }

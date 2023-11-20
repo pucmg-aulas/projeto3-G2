@@ -357,6 +357,10 @@ public class Estacionamento implements IEmpacotavel {
         throw new Error("Erro: vaga nao foi liberada / carro nao encontrado");
     }
 
+    private void cadastrarUsoVaga(String placa) {
+
+    }
+
     public double totalArrecadado() {
         Iterator<Cliente> iterator = clientes.iterator();
         double result = 0.0;

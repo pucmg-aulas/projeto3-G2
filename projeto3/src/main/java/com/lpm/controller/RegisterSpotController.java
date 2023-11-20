@@ -1,6 +1,7 @@
 package com.lpm.controller;
 
 import com.lpm.model.Estacionamento;
+import com.lpm.model.Vaga;
 import com.lpm.view.RegisterSpot;
 
 public class RegisterSpotController {
@@ -12,7 +13,10 @@ public class RegisterSpotController {
         this.estacionamentoAtual = estacionamentoAtual;
     }
 
-    public void registrar() {
-        
+    public void registrar(Vaga vaga, String placa) {
+        vaga.estacionar();
+        estacionamentoAtual.estacionar(placa);
+
+
     }
 }
