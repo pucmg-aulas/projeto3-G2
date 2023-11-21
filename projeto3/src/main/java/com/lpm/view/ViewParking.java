@@ -29,7 +29,7 @@ public class ViewParking extends JFrame {
 
         for(int i = 0; i < estacionamentoAtual.getQuantFileiras(); i++) {
             for(int j = 0; j < estacionamentoAtual.getVagasPorFileira(); j++) {
-                painelVagas.add(criarVaga(controller.getVagas().get(counter)));
+                painelVagas.add(criarVaga(controller.getVagas().get(counter), estacionamentoAtual));
                 counter++;
             }
         }
@@ -42,7 +42,7 @@ public class ViewParking extends JFrame {
         });
     }
 
-    private JPanel criarVaga(Vaga vaga) {
+    private JPanel criarVaga(Vaga vaga, Estacionamento estacionamentoAtual) {
         JPanel result = new JPanel();
         result.setPreferredSize(new Dimension(25, 25)); // Tamanho da vaga
 
@@ -59,7 +59,8 @@ public class ViewParking extends JFrame {
         result.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                dispose();
+                new RegisterSpot(estacionamentoAtual, vaga).setVisible(true);
             }
 
             @Override

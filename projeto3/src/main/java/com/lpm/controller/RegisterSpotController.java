@@ -13,10 +13,7 @@ public class RegisterSpotController {
         this.estacionamentoAtual = estacionamentoAtual;
     }
 
-    public void registrar(Vaga vaga, String placa) {
-        vaga.estacionar();
-        estacionamentoAtual.estacionar(placa);
-
-
+    public void registrar(String placa, String idVaga) {
+        estacionamentoAtual.estacionar(placa, idVaga);
     }
 }

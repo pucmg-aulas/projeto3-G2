@@ -319,7 +319,7 @@ public class Estacionamento implements IEmpacotavel {
         return null;
     }
 
-    public void estacionar(String placa) {
+    public void estacionar(String placa, String idVaga) {
         Iterator<Vaga> iteratorVaga = vagas.iterator();
         Vaga auxVaga;
 
@@ -328,8 +328,9 @@ public class Estacionamento implements IEmpacotavel {
         if (veiculo != null) {
             while (iteratorVaga.hasNext()) {
                 auxVaga = iteratorVaga.next();
-                if (auxVaga.disponivel()) {
+                if (auxVaga.getId() == idVaga) {
                     veiculo.estacionar(auxVaga);
+                    break;
                 }
             }
         } else {
@@ -355,10 +356,6 @@ public class Estacionamento implements IEmpacotavel {
         }
 
         throw new Error("Erro: vaga nao foi liberada / carro nao encontrado");
-    }
-
-    private void cadastrarUsoVaga(String placa) {
-
     }
 
     public double totalArrecadado() {

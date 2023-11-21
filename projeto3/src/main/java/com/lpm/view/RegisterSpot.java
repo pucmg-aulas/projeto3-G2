@@ -15,6 +15,7 @@ public class RegisterSpot extends JFrame{
     private JButton btnCancelar;
     private JLabel labelTextPlaca;
     private JLabel idVaga;
+    private JPanel panel1;
     private RegisterSpotController controller;
 
     public RegisterSpot(Estacionamento estacionamentoAtual, Vaga vaga) {
@@ -26,11 +27,19 @@ public class RegisterSpot extends JFrame{
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+        add(panel1);
+
 
         btnConfirmar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.registrar(vaga, textFieldPlaca.getText());
+                if(vaga.disponivel()) {
+                    controller.registrar(textFieldPlaca.getText(), vaga.getId());
+                    dispose();
+                    new HomeScreen(estacionamentoAtual).setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Vaga indisponível!");
+                }
             }
         });
     }
