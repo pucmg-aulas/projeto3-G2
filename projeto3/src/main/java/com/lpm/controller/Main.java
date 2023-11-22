@@ -13,8 +13,6 @@ public class Main {
 
         Estacionamento estacionamentoAtual = new Estacionamento(nomeLido);
 
-        ArrayList<String> estacionamentosSistema = estacionamentoAtual.ler();
-
         estacionamentoAtual.printClientes();
 
         ArrayList<Veiculo> veiculosJohn = new ArrayList<Veiculo>();
@@ -22,6 +20,6 @@ public class Main {
 
         estacionamentoAtual.addCliente(new Cliente("03", "John Doe", veiculosJohn));
 
-        estacionamentoAtual.gerar(estacionamentosSistema);
+        estacionamentoAtual.gerar();
     }
 }

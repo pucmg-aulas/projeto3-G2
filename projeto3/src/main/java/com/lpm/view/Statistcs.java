@@ -2,6 +2,9 @@ package com.lpm.view;
 
 import com.lpm.controller.StatistcsController;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class Statistcs extends JFrame {
 
     private StatistcsController controller;

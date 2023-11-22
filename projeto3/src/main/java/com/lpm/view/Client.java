@@ -9,10 +9,10 @@ import java.awt.event.ActionListener;
 
 public class Client extends JFrame {
 
-    private JButton cadastrarButton;
+    private JButton btnCadastrar;
     private JPanel panel1;
-    private JButton removerButton;
-    private JButton listagemButton;
+    private JButton btnRemover;
+    private JButton btnListagem;
     private JLabel labelClientes;
 
     public Client(Estacionamento estacionamentoAtual) {
@@ -26,18 +26,21 @@ public class Client extends JFrame {
 
         setVisible(true);
 
-        cadastrarButton.addActionListener(new ActionListener() {
+        btnCadastrar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                dispose();
                 new RegisterClient(estacionamentoAtual).setVisible(true);
             }
         });
 
-        listagemButton.addActionListener(new ActionListener() {
+        btnListagem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                dispose();
             }
         });
+
+
     }
 }

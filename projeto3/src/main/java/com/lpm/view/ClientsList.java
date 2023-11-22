@@ -38,13 +38,5 @@ public class ClientsList extends JFrame {
 
         setVisible(true);
     }
-
-    public static void main(String[] args) {
-        // Exemplo de uso da classe ClientsList
-        SwingUtilities.invokeLater(() -> {
-            Estacionamento estacionamento = new Estacionamento(); // Substitua pelo seu próprio objeto Estacionamento
-            new ClientsList(estacionamento);
-        });
-    }
 }
 

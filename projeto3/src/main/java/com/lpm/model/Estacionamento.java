@@ -1,10 +1,6 @@
 package com.lpm.model;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -33,42 +29,67 @@ public class Estacionamento implements IEmpacotavel {
     }
 
     @Override
-    public void gerar(ArrayList<String> estacionamentos) {
-        Iterator<String> iteratorEstacionamentos = estacionamentos.iterator();
+    public void gerar() {
+        ArrayList<String> estacionamentosExistentes = new ArrayList<String>();
+        ArrayList<String> usoDeVagasExistentes = new ArrayList<String>();
+
+        String line;
+        String[] data;
         try {
-            File arq = new File(System.getProperty("user.dir") + "\\projeto3\\db\\estacionamentos.csv"); // definindo caminho do arquivo
+            // Fazendo leitura dos estacionamentos que ja existem
 
-            arq.createNewFile(); // garante que o arquivo seja sempre sobrescrevido
+            BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\projeto3\\db\\estacionamentos.csv"));
 
-            FileWriter fw = new FileWriter(arq); // acessando a escrita no arquivo
+            while((line = br.readLine()) != null) {
+                data = line.split(",");
+                if(!data[0].equalsIgnoreCase(this.nome)) {
+                    estacionamentosExistentes.add(line);
+                }
+            }
+
+            br.close();
+
+            // Guardando estacionamentos que ja existem
+
+            Iterator<String> iteratorEstacionamentos = estacionamentosExistentes.iterator();
+
+            BufferedWriter bw = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "\\projeto3\\db\\estacionamentos.csv")); // acessando a escrita no arquivo
+
+            bw.write(""); // limpar o arquivo
+
+            bw.close();
+
+            bw = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "\\projeto3\\db\\estacionamentos.csv", true));
 
             while (iteratorEstacionamentos.hasNext()) {
-                fw.write(iteratorEstacionamentos.next() + "\n"); // guardando os estacionamentos que ja existem
+                bw.write(iteratorEstacionamentos.next() + "\n"); // guardando os estacionamentos que ja existem
             }
 
             // guardando estacionamento atual
 
-            fw.write(this.nome + "," + this.quantFileiras + "," + this.vagasPorFileira);
+            bw.write(this.nome + "," + this.quantFileiras + "," + this.vagasPorFileira);
 
             Iterator<Vaga> iteratorVagas = this.vagas.iterator();
             Vaga auxVaga;
 
             while (iteratorVagas.hasNext()) {
                 auxVaga = iteratorVagas.next();
-                fw.write("," + auxVaga.getId() + "_" + auxVaga.disponivel());
+                bw.write("," + auxVaga.getId() + "_" + auxVaga.disponivel());
             }
 
-            fw.write("\n");
+            bw.write("\n");
 
-            fw.close();
+            bw.close();
 
             // Gerando Clientes
 
-            arq = new File(System.getProperty("user.dir") + "\\projeto3\\db\\Clientes.csv");
+            bw = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "\\projeto3\\db\\clientes.csv")); // acessando a escrita no arquivo
 
-            arq.createNewFile(); // garante que o arquivo seja sempre sobrescrevido
+            bw.write(""); // limpar o arquivo
 
-            fw = new FileWriter(arq);
+            bw.close();
+
+            bw = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "\\projeto3\\db\\clientes.csv", true));
 
             Iterator<Cliente> iteratorClientes = this.clientes.iterator();
             Cliente auxCliente;
@@ -76,18 +97,20 @@ public class Estacionamento implements IEmpacotavel {
             while (iteratorClientes.hasNext()) {
                 auxCliente = iteratorClientes.next();
 
-                fw.write(auxCliente.getNome() + "," + auxCliente.getId() + "\n");
+                bw.write(auxCliente.getNome() + "," + auxCliente.getId() + "\n");
             }
 
-            fw.close();
+            bw.close();
 
             // Gerando Veiculos
 
-            arq = new File(System.getProperty("user.dir") + "\\projeto3\\db\\Veiculos.csv");
+            bw = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "\\projeto3\\db\\veiculos.csv")); // acessando a escrita no arquivo
 
-            arq.createNewFile(); // garante que o arquivo seja sempre sobrescrevido
+            bw.write(""); // limpar o arquivo
 
-            fw = new FileWriter(arq);
+            bw.close();
+
+            bw = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "\\projeto3\\db\\veiculos.csv", true));
 
             iteratorClientes = this.clientes.iterator();
             Iterator<Veiculo> iteratorVeiculos;
@@ -96,24 +119,49 @@ public class Estacionamento implements IEmpacotavel {
                 auxCliente = iteratorClientes.next();
 
                 if (!auxCliente.getVeiculos().isEmpty()) {
-                    fw.write(auxCliente.getId());
+                    bw.write(auxCliente.getId());
 
                     iteratorVeiculos = auxCliente.getVeiculos().iterator();
 
                     while (iteratorVeiculos.hasNext()) {
-                        fw.write("," + iteratorVeiculos.next().getPlaca());
+                        bw.write("," + iteratorVeiculos.next().getPlaca());
                     }
                 }
-                fw.write("\n");
+                bw.write("\n");
             }
 
-            fw.close();
+            bw.close();
 
             // Gerando UsoDeVagas
 
-            arq = new File(System.getProperty("user.dir") + "\\projeto3\\db\\UsoDeVagas.csv");
+            // Fazendo leitura dos usos que ja existem
 
-            fw = new FileWriter(arq);
+            br = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\projeto3\\db\\usoDeVagas.csv"));
+
+            while((line = br.readLine()) != null) {
+                data = line.split(",");
+                if(!data[0].equalsIgnoreCase(this.nome)) {
+                    usoDeVagasExistentes.add(line);
+                }
+            }
+
+            br.close();
+
+            // Escrevendo usos que ja existem
+
+            bw = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "\\projeto3\\db\\usoDeVagas.csv")); // acessando a escrita no arquivo
+
+            bw.write(""); // limpar o arquivo
+
+            bw.close();
+
+            bw = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "\\projeto3\\db\\usoDeVagas.csv", true));
+
+            Iterator<String> iteratorUsoDeVagasExistentes = usoDeVagasExistentes.iterator();
+
+            while(iteratorUsoDeVagasExistentes.hasNext()) {
+                bw.write(iteratorUsoDeVagasExistentes.next() + "\n"); // guardando os usos que ja existem
+            }
 
             iteratorClientes = this.clientes.iterator();
             Veiculo auxVeiculo;
@@ -132,20 +180,20 @@ public class Estacionamento implements IEmpacotavel {
                         
                         while(iteratorUsosDeVaga.hasNext()) {
                             auxUsoDeVaga = iteratorUsosDeVaga.next();
-                            fw.write(this.nome + "," + auxUsoDeVaga.getVaga().getId() + "," + auxVeiculo.getPlaca() + "," + auxUsoDeVaga.getEntrada().toString() + "," + auxUsoDeVaga.getSaida().toString() + "\n");
+                            bw.write(this.nome + "," + auxUsoDeVaga.getVaga().getId() + "," + auxVeiculo.getPlaca() + "," + auxUsoDeVaga.getEntrada().toString() + "," + auxUsoDeVaga.getSaida().toString() + "\n");
                         }
                     }
                 }
             }
 
-            fw.close();
+            bw.close();
         } catch (IOException e) {
             throw new Error("Erro: Objeto nao pode ser serializado");
         }
     }
 
     @Override
-    public ArrayList<String> ler() {
+    public void ler() {
         ArrayList<String> outrosEstacionamentos = new ArrayList<String>();
         String line, line2, line3;
         String[] data, data2, data3, auxSplitVagas;
@@ -157,21 +205,17 @@ public class Estacionamento implements IEmpacotavel {
             while ((line = br.readLine()) != null) {
                 data = line.split(",");
 
-                if (data[0].equalsIgnoreCase(this.nome)) {
-                    this.quantFileiras = Integer.parseInt(data[1]);
-                    this.vagasPorFileira = Integer.parseInt(data[2]);
+                this.quantFileiras = Integer.parseInt(data[1]);
+                this.vagasPorFileira = Integer.parseInt(data[2]);
 
-                    for (int i = 3; i < data.length; i++) {
-                        auxSplitVagas = data[i].split("_");
-                        if (auxSplitVagas[1].equalsIgnoreCase("true")) {
-                            auxDisponivel = true;
-                        } else {
-                            auxDisponivel = false;
-                        }
-                        this.vagas.add(new Vaga(auxSplitVagas[0], auxDisponivel));
+                for (int i = 3; i < data.length; i++) {
+                    auxSplitVagas = data[i].split("_");
+                    if (auxSplitVagas[1].equalsIgnoreCase("true")) {
+                        auxDisponivel = true;
+                    } else {
+                        auxDisponivel = false;
                     }
-                } else {
-                    outrosEstacionamentos.add(line);
+                    this.vagas.add(new Vaga(auxSplitVagas[0], auxDisponivel));
                 }
             }
 
@@ -214,7 +258,6 @@ public class Estacionamento implements IEmpacotavel {
             }
 
             br.close();
-            return outrosEstacionamentos;
         } catch (IOException e) {
             throw new Error("Erro: Objeto nao pode ser serializado.\n " + e);
         }

@@ -5,10 +5,19 @@ import com.lpm.controller.LoadParkingController;
 
 public class LoadParking extends JFrame {
     private JPanel panel1;
-    private JButton button1;
+    private JButton btnCarregar;
     private JTextField textField1;
-    private JTextArea casoOEstacionamentoNãoTextArea;
+    private JComboBox comboBoxEstacionamentos;
+    private JLabel labelCarregarEstacionamento;
     private final LoadParkingController controller;
+
+    public JComboBox getComboBoxEstacionamentos() {
+        return comboBoxEstacionamentos;
+    }
+
+    public void setComboBoxEstacionamentos(JComboBox comboBoxEstacionamentos) {
+        this.comboBoxEstacionamentos = comboBoxEstacionamentos;
+    }
 
     public LoadParking() {
         setTitle("Xulambs Parking");
@@ -22,7 +31,9 @@ public class LoadParking extends JFrame {
 
         controller = new LoadParkingController(this);
 
-        button1.addActionListener(e -> {
+        controller.carregarComboBox();
+
+        btnCarregar.addActionListener(e -> {
             dispose();
             new HomeScreen(controller.carregarEstacionamento());
         });

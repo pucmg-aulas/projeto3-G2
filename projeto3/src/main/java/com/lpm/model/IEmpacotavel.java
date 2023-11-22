@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public interface IEmpacotavel {
     
-    public void gerar(ArrayList<String> leituraAtual);
+    public void gerar();
 
-    public ArrayList<String> ler();
+    public void ler();
 }
