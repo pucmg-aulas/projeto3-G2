@@ -14,7 +14,7 @@ import java.awt.event.MouseListener;
 public class ViewParking extends JFrame {
     private JLabel nomeEstacionamento;
     private JButton btnReturn;
-    private ViewParkingController controller;
+    private final ViewParkingController controller;
 
     public ViewParking(Estacionamento estacionamentoAtual) {
         int counter = 0;
@@ -60,7 +60,12 @@ public class ViewParking extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                new RegisterSpot(estacionamentoAtual, vaga).setVisible(true);
+                if(result.getBackground() == Color.GREEN) {
+                    new RegisterSpot(estacionamentoAtual, vaga).setVisible(true);
+                } else if (result.getBackground() == Color.RED) {
+                    new InfoSpot(estacionamentoAtual, vaga).setVisible(true);
+                }
+
             }
 
             @Override
