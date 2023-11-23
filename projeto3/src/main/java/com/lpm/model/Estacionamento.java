@@ -126,8 +126,9 @@ public class Estacionamento implements IEmpacotavel {
                     while (iteratorVeiculos.hasNext()) {
                         bw.write("," + iteratorVeiculos.next().getPlaca());
                     }
+                    bw.write("\n");
                 }
-                bw.write("\n");
+
             }
 
             bw.close();
@@ -194,7 +195,6 @@ public class Estacionamento implements IEmpacotavel {
 
     @Override
     public void ler() {
-        ArrayList<String> outrosEstacionamentos = new ArrayList<String>();
         String line, line2, line3;
         String[] data, data2, data3, auxSplitVagas;
         boolean auxDisponivel;
@@ -205,59 +205,61 @@ public class Estacionamento implements IEmpacotavel {
             while ((line = br.readLine()) != null) {
                 data = line.split(",");
 
-                this.quantFileiras = Integer.parseInt(data[1]);
-                this.vagasPorFileira = Integer.parseInt(data[2]);
+                if (data[0].equalsIgnoreCase(this.nome)) {
+                    this.quantFileiras = Integer.parseInt(data[1]);
+                    this.vagasPorFileira = Integer.parseInt(data[2]);
 
-                for (int i = 3; i < data.length; i++) {
-                    auxSplitVagas = data[i].split("_");
-                    if (auxSplitVagas[1].equalsIgnoreCase("true")) {
-                        auxDisponivel = true;
-                    } else {
-                        auxDisponivel = false;
+                    for (int i = 3; i < data.length; i++) {
+                        auxSplitVagas = data[i].split("_");
+                        if (auxSplitVagas[1].equalsIgnoreCase("true")) {
+                            auxDisponivel = true;
+                        } else {
+                            auxDisponivel = false;
+                        }
+                        this.vagas.add(new Vaga(auxSplitVagas[0], auxDisponivel));
                     }
-                    this.vagas.add(new Vaga(auxSplitVagas[0], auxDisponivel));
-                }
-            }
+                    br.close();
 
-            br.close();
+                    // Leitura Clientes
 
-            // Leitura Clientes
+                    br = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\projeto3\\db\\clientes.csv"));
+                    BufferedReader br2 = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\projeto3\\db\\veiculos.csv"));
+                    BufferedReader br3 = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\projeto3\\db\\usoDeVagas.csv"));
+                    ArrayList<Veiculo> auxVeiculos = new ArrayList<Veiculo>();
+                    ArrayList<UsoDeVaga> auxUsoDeVagas = new ArrayList<UsoDeVaga>();
 
-            br = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\projeto3\\db\\clientes.csv"));
-            BufferedReader br2 = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\projeto3\\db\\veiculos.csv"));
-            BufferedReader br3 = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\projeto3\\db\\usoDeVagas.csv"));
-            ArrayList<Veiculo> auxVeiculos = new ArrayList<Veiculo>();
-            ArrayList<UsoDeVaga> auxUsoDeVagas = new ArrayList<UsoDeVaga>();
+                    while ((line = br.readLine()) != null) {
+                        data = line.split(",");
 
-            while((line = br.readLine()) != null) {
-                data = line.split(",");
+                        while ((line2 = br2.readLine()) != null) {
+                            data2 = line2.split(",");
 
-                while ((line2 = br2.readLine()) != null) {
-                    data2 = line2.split(",");
+                            if (data2[0].equalsIgnoreCase(data[1])) {
+                                for (int i = 1; i < data2.length; i++) {
+                                    while ((line3 = br3.readLine()) != null) {
+                                        data3 = line3.split(",");
 
-                    if(data2[0].equalsIgnoreCase(data[1])) {
-                        for(int i = 1; i < data2.length; i++) {
-                            while((line3 = br3.readLine()) != null) {
-                                data3 = line3.split(",");
-
-                                if(data3[0].equalsIgnoreCase(this.nome) && data3[2].equalsIgnoreCase(data2[i])) {
-                                    auxUsoDeVagas.add(new UsoDeVaga(buscarVaga(data3[1]), LocalDateTime.parse(data3[3]), LocalDateTime.parse(data3[4])));
+                                        if (data3[0].equalsIgnoreCase(this.nome) && data3[2].equalsIgnoreCase(data2[i])) {
+                                            auxUsoDeVagas.add(new UsoDeVaga(buscarVaga(data3[1]), LocalDateTime.parse(data3[3]), LocalDateTime.parse(data3[4])));
+                                        }
+                                    }
+                                    br3.close();
+                                    br3 = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\projeto3\\db\\UsoDeVagas.csv"));
+                                    auxVeiculos.add(new Veiculo(data2[i], auxUsoDeVagas));
+                                    auxUsoDeVagas = new ArrayList<UsoDeVaga>();
                                 }
                             }
-                            br3.close();
-                            br3 = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\projeto3\\db\\UsoDeVagas.csv"));
-                            auxVeiculos.add(new Veiculo(data2[i], auxUsoDeVagas));
-                            auxUsoDeVagas = new ArrayList<UsoDeVaga>();
                         }
+                        br2.close();
+                        br2 = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\projeto3\\db\\Veiculos.csv"));
+                        this.clientes.add(new Cliente(data[1], data[0], auxVeiculos));
+                        auxVeiculos = new ArrayList<Veiculo>();
                     }
-                }
-                br2.close();
-                br2 = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\projeto3\\db\\Veiculos.csv"));
-                this.clientes.add(new Cliente(data[1], data[0], auxVeiculos));
-                auxVeiculos = new ArrayList<Veiculo>();
-            }
 
-            br.close();
+                    br.close();
+                    break;
+                }
+            }
         } catch (IOException e) {
             throw new Error("Erro: Objeto nao pode ser serializado.\n " + e);
         }

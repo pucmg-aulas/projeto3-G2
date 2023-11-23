@@ -17,6 +17,6 @@ public class RegisterClientController {
     }
 
     public void registrarCliente() {
-        estacionamentoAtual.addCliente(new Cliente(view.getTextId().toString(), view.getTextName().toString(), new ArrayList<Veiculo>()));
+        estacionamentoAtual.addCliente(new Cliente(view.getTextId().getText(), view.getTextName().getText(), new ArrayList<Veiculo>()));
     }
 }
