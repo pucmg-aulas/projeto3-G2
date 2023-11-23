@@ -168,6 +168,7 @@ public class Estacionamento implements IEmpacotavel {
             Veiculo auxVeiculo;
             UsoDeVaga auxUsoDeVaga;
             Iterator<UsoDeVaga> iteratorUsosDeVaga;
+            LocalDateTime auxSaida;
 
             while (iteratorClientes.hasNext()) {
                 auxCliente = iteratorClientes.next();
@@ -181,7 +182,13 @@ public class Estacionamento implements IEmpacotavel {
                         
                         while(iteratorUsosDeVaga.hasNext()) {
                             auxUsoDeVaga = iteratorUsosDeVaga.next();
-                            bw.write(this.nome + "," + auxUsoDeVaga.getVaga().getId() + "," + auxVeiculo.getPlaca() + "," + auxUsoDeVaga.getEntrada().toString() + "," + auxUsoDeVaga.getSaida().toString() + "\n");
+                            auxSaida = auxUsoDeVaga.getSaida();
+
+                            if(auxSaida == null) {
+                                bw.write(this.nome + "," + auxUsoDeVaga.getVaga().getId() + "," + auxVeiculo.getPlaca() + "," + auxUsoDeVaga.getEntrada().toString() + ",null\n");
+                            } else {
+                                bw.write(this.nome + "," + auxUsoDeVaga.getVaga().getId() + "," + auxVeiculo.getPlaca() + "," + auxUsoDeVaga.getEntrada().toString() + "," + auxUsoDeVaga.getSaida().toString() + "\n");
+                            }
                         }
                     }
                 }
@@ -240,7 +247,11 @@ public class Estacionamento implements IEmpacotavel {
                                         data3 = line3.split(",");
 
                                         if (data3[0].equalsIgnoreCase(this.nome) && data3[2].equalsIgnoreCase(data2[i])) {
-                                            auxUsoDeVagas.add(new UsoDeVaga(buscarVaga(data3[1]), LocalDateTime.parse(data3[3]), LocalDateTime.parse(data3[4])));
+                                            if(data3[4].equalsIgnoreCase("null")) {
+                                                auxUsoDeVagas.add(new UsoDeVaga(buscarVaga(data3[1]), LocalDateTime.parse(data3[3]), null));
+                                            } else {
+                                                auxUsoDeVagas.add(new UsoDeVaga(buscarVaga(data3[1]), LocalDateTime.parse(data3[3]), LocalDateTime.parse(data3[4])));
+                                            }
                                         }
                                     }
                                     br3.close();

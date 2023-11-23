@@ -42,5 +42,12 @@ public class RegisterSpot extends JFrame{
                 }
             }
         });
+        btnCancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new ViewParking(estacionamentoAtual).setVisible(true);
+            }
+        });
     }
 }

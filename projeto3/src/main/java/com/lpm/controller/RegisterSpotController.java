@@ -15,5 +15,6 @@ public class RegisterSpotController {
 
     public void registrar(String placa, String idVaga) {
         estacionamentoAtual.estacionar(placa, idVaga);
+        estacionamentoAtual.gerar();
     }
 }
