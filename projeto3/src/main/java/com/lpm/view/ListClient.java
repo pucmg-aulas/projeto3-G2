@@ -24,15 +24,17 @@ public class ListClient extends JFrame {
 
         this.controller = new ListClientController(this, estacionamentoAtual);
 
+        labelListaEstacionamento.setText("Lista Clientes (" + estacionamentoAtual.getNome() +")");
+
         // Cria o DefaultTableModel
         DefaultTableModel tableModel = new DefaultTableModel();
+
         // Adiciona as colunas à tabela
         tableModel.addColumn("Nome");
         tableModel.addColumn("CPF");
-        tableModel.addColumn("Veículos");
+        tableModel.addColumn("Ações");
 
         // Adiciona os dados à tabela
-
         controller.popularTabela(tableModel);
 
         // Cria a JTable com o DefaultTableModel
@@ -42,6 +44,8 @@ public class ListClient extends JFrame {
         JScrollPane scrollPane = new JScrollPane(tableClientes);
         panel1.setLayout(new BorderLayout());
         panel1.add(scrollPane, BorderLayout.CENTER);
+        panel1.add(labelListaEstacionamento, BorderLayout.BEFORE_FIRST_LINE);
+        panel1.add(btnVoltar, BorderLayout.AFTER_LAST_LINE);
 
         add(panel1);
         btnVoltar.addActionListener(new ActionListener() {
