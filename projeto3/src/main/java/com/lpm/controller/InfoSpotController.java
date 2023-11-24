@@ -34,7 +34,7 @@ public class InfoSpotController {
 
             while((line = br.readLine()) != null) {
                 data = line.split(",");
-                if(data[0].equalsIgnoreCase(this.estacionamentoAtual.getNome()) && data[1].equalsIgnoreCase(this.idVaga)) {
+                if(data[0].equalsIgnoreCase(this.estacionamentoAtual.getNome()) && data[1].equalsIgnoreCase(this.idVaga) && data[4].equalsIgnoreCase("null")) {
                     this.idVeiculo = data[2];
                     this.entrada = data[3];
                     br.close();
