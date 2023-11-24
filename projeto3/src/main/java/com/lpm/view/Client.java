@@ -37,7 +37,7 @@ public class Client extends JFrame {
         btnListagem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
+                dispose(); new ListClient(estacionamentoAtual).setVisible(true);
             }
         });
 
