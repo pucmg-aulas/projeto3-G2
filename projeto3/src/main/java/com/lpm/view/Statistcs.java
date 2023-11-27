@@ -4,6 +4,8 @@ import com.lpm.controller.StatistcsController;
 import com.lpm.model.Estacionamento;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Statistcs extends JFrame {
 
@@ -14,7 +16,13 @@ public class Statistcs extends JFrame {
     private JLabel labelMes;
     private JTextArea textAreaEstatisticas;
 
+    public JTextArea getTextAreaEstatisticas() {
+        return textAreaEstatisticas;
+    }
+
     public Statistcs(Estacionamento estacionamentoAtual) {
+        this.controller = new StatistcsController(this, estacionamentoAtual);
+
         setTitle("Xulambs Parking");
         setSize(400, 300);
         setLocationRelativeTo(null);
@@ -23,15 +31,17 @@ public class Statistcs extends JFrame {
         add(panel1);
 
         setVisible(true);
+
+        controller.recuperarEstatisticas("Todos");
+
+        textAreaEstatisticas.setEditable(false);
+        comboBoxMes.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textAreaEstatisticas.setText("");
+                controller.recuperarEstatisticas(comboBoxMes.getSelectedItem().toString());
+            }
+        });
     }
-
-    public void showStatistcs(){
-        
-    }
-
-
-
-
-
 
 }
