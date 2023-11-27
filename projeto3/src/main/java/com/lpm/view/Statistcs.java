@@ -1,6 +1,7 @@
 package com.lpm.view;
 
 import com.lpm.controller.StatistcsController;
+import com.lpm.model.Estacionamento;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +13,7 @@ public class Statistcs extends JFrame {
     private JTextField textField1;
     private JComboBox<Integer> comboBoxMeses;
 
-    public Statistcs() {
+    public Statistcs(Estacionamento estacionamentoAtual) {
         setTitle("Xulambs Parking");
         setSize(400, 300);
         setLocationRelativeTo(null);

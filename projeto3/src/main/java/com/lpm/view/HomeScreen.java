@@ -36,5 +36,11 @@ public class HomeScreen extends JFrame {
         });
 
         setVisible(true);
+        estatisticasButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); new Statistcs(estacionamentoAtual).setVisible(true);
+            }
+        });
     }
 }
