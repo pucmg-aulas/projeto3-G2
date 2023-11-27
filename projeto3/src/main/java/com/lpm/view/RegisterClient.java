@@ -1,9 +1,7 @@
 package com.lpm.view;
 
 import com.lpm.controller.RegisterClientController;
-import com.lpm.model.Cliente;
 import com.lpm.model.Estacionamento;
-import com.lpm.model.Veiculo;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -15,6 +13,7 @@ public class RegisterClient extends JFrame {
     private JTextField textId;
     private JButton salvarButton;
     private JTextField textName;
+    private JButton btnCancelar;
     private RegisterClientController controller;
 
     public RegisterClient(Estacionamento estacionamentoAtual) {
@@ -32,6 +31,12 @@ public class RegisterClient extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 controller.registrarCliente();
                 estacionamentoAtual.gerar();
+            }
+        });
+        btnCancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); new Client(estacionamentoAtual).setVisible(true);
             }
         });
     }
