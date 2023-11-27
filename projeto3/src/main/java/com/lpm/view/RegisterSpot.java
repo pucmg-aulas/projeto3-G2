@@ -18,6 +18,10 @@ public class RegisterSpot extends JFrame{
     private JPanel panel1;
     private RegisterSpotController controller;
 
+    public JTextField getTextFieldPlaca() {
+        return textFieldPlaca;
+    }
+
     public RegisterSpot(Estacionamento estacionamentoAtual, Vaga vaga) {
         controller = new RegisterSpotController(this, estacionamentoAtual);
         idVaga.setText(vaga.getId());
@@ -34,9 +38,10 @@ public class RegisterSpot extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(vaga.disponivel()) {
-                    controller.registrar(textFieldPlaca.getText(), vaga.getId());
-                    dispose();
-                    new HomeScreen(estacionamentoAtual).setVisible(true);
+                    if(controller.registrar(textFieldPlaca.getText(), vaga.getId())) {
+                        dispose();
+                        new HomeScreen(estacionamentoAtual).setVisible(true);
+                    }
                 } else {
                     JOptionPane.showMessageDialog(null, "Vaga indisponível!");
                 }
@@ -49,5 +54,9 @@ public class RegisterSpot extends JFrame{
                 new ViewParking(estacionamentoAtual).setVisible(true);
             }
         });
+    }
+
+    public void exibeMensagem(String mensagem) {
+        JOptionPane.showMessageDialog(null, mensagem);
     }
 }

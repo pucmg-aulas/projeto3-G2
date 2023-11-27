@@ -14,6 +14,7 @@ public class Client extends JFrame {
     private JButton btnRemover;
     private JButton btnListagem;
     private JLabel labelClientes;
+    private JButton btnVoltar;
 
     public Client(Estacionamento estacionamentoAtual) {
         setTitle("Xulambs Parking");
@@ -42,5 +43,11 @@ public class Client extends JFrame {
         });
 
 
+        btnVoltar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); new HomeScreen(estacionamentoAtual).setVisible(true);
+            }
+        });
     }
 }

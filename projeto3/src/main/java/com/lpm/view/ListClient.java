@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 public class ListClient extends JFrame {
     private JPanel panel1;
     private JTable tableClientes;
-    private JLabel labelListaEstacionamento;
+    private JLabel labelTituloJanela;
     private JButton btnVoltar;
     private final ListClientController controller;
 
@@ -23,8 +23,6 @@ public class ListClient extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         this.controller = new ListClientController(this, estacionamentoAtual);
-
-        labelListaEstacionamento.setText("Lista Clientes (" + estacionamentoAtual.getNome() +")");
 
         // Cria o DefaultTableModel
         DefaultTableModel tableModel = new DefaultTableModel();
@@ -44,7 +42,7 @@ public class ListClient extends JFrame {
         JScrollPane scrollPane = new JScrollPane(tableClientes);
         panel1.setLayout(new BorderLayout());
         panel1.add(scrollPane, BorderLayout.CENTER);
-        panel1.add(labelListaEstacionamento, BorderLayout.BEFORE_FIRST_LINE);
+        panel1.add(labelTituloJanela, BorderLayout.BEFORE_FIRST_LINE);
         panel1.add(btnVoltar, BorderLayout.AFTER_LAST_LINE);
 
         add(panel1);

@@ -1,6 +1,7 @@
 package com.lpm.view;
 
 import javax.swing.*;
+
 import com.lpm.controller.LoadParkingController;
 
 public class LoadParking extends JFrame {

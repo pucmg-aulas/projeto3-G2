@@ -19,10 +19,11 @@ public class ViewParking extends JFrame {
     public ViewParking(Estacionamento estacionamentoAtual) {
         int counter = 0;
         controller = new ViewParkingController(this, estacionamentoAtual);
-        nomeEstacionamento.setText(estacionamentoAtual.getNome());
+        nomeEstacionamento.setHorizontalAlignment(SwingConstants.CENTER);
+        nomeEstacionamento.setText("Painel de vagas " + estacionamentoAtual.getNome());
         setTitle(estacionamentoAtual.getNome());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(250, 200);
+        setSize(400, 300);
         setLocationRelativeTo(null);
 
         JPanel painelVagas = new JPanel(new GridLayout(estacionamentoAtual.getQuantFileiras(), estacionamentoAtual.getVagasPorFileira()));
@@ -34,16 +35,19 @@ public class ViewParking extends JFrame {
             }
         }
         add(painelVagas);
+        add(btnReturn, BorderLayout.AFTER_LAST_LINE);
+        add(nomeEstacionamento, BorderLayout.BEFORE_FIRST_LINE);
         btnReturn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new HomeScreen(estacionamentoAtual);
+                dispose(); new HomeScreen(estacionamentoAtual).setVisible(true);
             }
         });
     }
 
     private JPanel criarVaga(Vaga vaga, Estacionamento estacionamentoAtual) {
         JPanel result = new JPanel();
+        result.add(btnReturn);
         result.setPreferredSize(new Dimension(25, 25)); // Tamanho da vaga
 
         if(vaga.disponivel()) {
