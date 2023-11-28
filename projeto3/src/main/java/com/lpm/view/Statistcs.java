@@ -15,6 +15,7 @@ public class Statistcs extends JFrame {
     private JComboBox comboBoxMes;
     private JLabel labelMes;
     private JTextArea textAreaEstatisticas;
+    private JButton btnVoltar;
 
     public JTextArea getTextAreaEstatisticas() {
         return textAreaEstatisticas;
@@ -42,6 +43,12 @@ public class Statistcs extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 textAreaEstatisticas.setText("");
                 controller.recuperarEstatisticas(comboBoxMes.getSelectedItem().toString());
+            }
+        });
+        btnVoltar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); new HomeScreen(estacionamentoAtual).setVisible(true);
             }
         });
     }

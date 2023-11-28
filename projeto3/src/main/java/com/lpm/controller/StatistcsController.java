@@ -14,7 +14,7 @@ public class StatistcsController {
 
     public void recuperarEstatisticas(String mes) {
         switch (mes) {
-            case "Tudo": view.getTextAreaEstatisticas().setText(""); break;
+            case "Todos": view.getTextAreaEstatisticas().setText(getArrecadacaoTotal()); break;
             case "Janeiro": view.getTextAreaEstatisticas().setText(getArrecadacaoMes(1) + "\n\n" + getTop5Mes(1)); break;
             case "Fevereiro": view.getTextAreaEstatisticas().setText(getArrecadacaoMes(2) + "\n\n" + getTop5Mes(2)); break;
             case "Março": view.getTextAreaEstatisticas().setText(getArrecadacaoMes(3) + "\n\n" + getTop5Mes(3)); break;
@@ -37,5 +37,9 @@ public class StatistcsController {
     private String getTop5Mes(int mes) {
         String top5 = estacionamentoAtual.top5Clientes(mes);
         return "Top 5 Clientes:" + top5;
+    }
+
+    private String getArrecadacaoTotal() {
+        return "Total arrecadado: " + estacionamentoAtual.totalArrecadado();
     }
 }
