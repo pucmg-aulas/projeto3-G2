@@ -463,7 +463,9 @@ public class Estacionamento implements IEmpacotavel {
                 i++;
             }
 
-            for (i = 0; i < tamClientes - 1; i++) {
+            i = 0;
+
+            while(i < (tamClientes-1)) {
                 if (aux[i] < aux[i + 1]) {
                     tempValor = aux[i];
                     tempCliente = copiaClientes.get(i);
@@ -471,11 +473,14 @@ public class Estacionamento implements IEmpacotavel {
                     copiaClientes.set(i, copiaClientes.get(i + 1));
                     aux[i + 1] = tempValor;
                     copiaClientes.set(i + 1, tempCliente);
+                    i = 0;
+                } else {
+                    i++;
                 }
             }
 
             for (i = 0; i < 5; i++) {
-                result.concat("-" + copiaClientes.get(i).getNome() + " R$" + aux[i]);
+                result = result.concat("\n-" + copiaClientes.get(i).getNome() + " R$" + aux[i]);
             }
 
             return result;

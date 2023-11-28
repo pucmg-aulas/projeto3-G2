@@ -28,6 +28,8 @@ public class Statistcs extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+        labelEstatisticasEstacionamento.setText("Estatísticas " + estacionamentoAtual.getNome());
+
         add(panel1);
 
         setVisible(true);
