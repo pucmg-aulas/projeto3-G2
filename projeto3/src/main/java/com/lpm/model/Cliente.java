@@ -14,6 +14,12 @@ public class Cliente {
         this.veiculos = veiculos;
     }
 
+    public Cliente(String id, String nome) {
+        this.id = id;
+        this.nome = nome;
+        this.veiculos = new ArrayList<Veiculo>();
+    }
+
     public String getNome() {
         return nome;
     }
