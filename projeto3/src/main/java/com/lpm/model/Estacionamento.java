@@ -351,7 +351,7 @@ public class Estacionamento implements IEmpacotavel {
 
     private void gerarVagas() {
         char fileiraAtual = 'A';
-        int numVagaAtual = 0;
+        int numVagaAtual = 1;
         for (int i = 0; i < quantFileiras; i++) {
             for (int j = 0; j < vagasPorFileira; j++) {
                 vagas.add(new Vaga(fileiraAtual, numVagaAtual));
