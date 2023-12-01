@@ -12,6 +12,14 @@ public class Estacionamento implements IEmpacotavel {
     private int quantFileiras;
     private int vagasPorFileira;
 
+    public void setClientes(ArrayList<Cliente> clientes) {
+        this.clientes = clientes;
+    }
+
+    public void setVagas(ArrayList<Vaga> vagas) {
+        this.vagas = vagas;
+    }
+
     public ArrayList<Cliente> getClientes() {
         return clientes;
     }

@@ -1,25 +1,16 @@
 package com.lpm.controller;
 
-import java.util.ArrayList;
-
 import com.lpm.model.*;
+import com.lpm.model.dao.*;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class Main {
 
     public static void main(String[] args) {
-        // pegar nome do estacionamento da tela
+        ArrayList<Veiculo> v = new VeiculoDAO().lerVeiculos("0");
 
-        String nomeLido = "xulambs1";
-
-        Estacionamento estacionamentoAtual = new Estacionamento(nomeLido);
-
-        estacionamentoAtual.printClientes();
-
-        ArrayList<Veiculo> veiculosJohn = new ArrayList<Veiculo>();
-        veiculosJohn.add(new Veiculo("NER-9416"));
-
-        estacionamentoAtual.addCliente(new Cliente("03", "John Doe", veiculosJohn));
-
-        estacionamentoAtual.gerar();
+        System.out.println(v.get(0).getPlaca());
     }
 }

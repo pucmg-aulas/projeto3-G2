@@ -8,6 +8,10 @@ public class Cliente {
     private String nome;
     private ArrayList<Veiculo> veiculos;
 
+    public void setVeiculos(ArrayList<Veiculo> veiculos) {
+        this.veiculos = veiculos;
+    }
+
     public Cliente(String id, String nome, ArrayList<Veiculo> veiculos) {
         this.id = id;
         this.nome = nome;

@@ -53,4 +53,34 @@ public class EstacionamentoDAO {
 
         return null;
     }
+
+    public ArrayList<String> lerNomesEstacionamentos() {
+        ArrayList<String> nomes = new ArrayList<String>();
+        String sql = "SELECT NOME_ESTACIONAMENTO FROM ESTACIONAMENTOS";
+
+        try {
+            PreparedStatement ps = ConexaoJDBC.getConnection().prepareStatement(sql);
+
+            ps.execute();
+
+            ResultSet rs = ps.getResultSet();
+
+            while(rs.next()) {
+                nomes.add(rs.getString("nome_estacionamento"));
+            }
+
+            return nomes;
+        } catch(SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void lerVagasEstacionamento(Estacionamento estacionamentoAtual) {
+        estacionamentoAtual.setVagas(new VagaDAO().lerVagas(estacionamentoAtual.getNome()));
+    }
+
+    public void lerClientesEstacionamento(Estacionamento estacionamentoAtual) {
+        estacionamentoAtual.setClientes(new ClienteDAO().lerClientes());
+    }
 }
