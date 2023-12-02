@@ -27,7 +27,7 @@ public class VeiculoDAO {
         }
     }
 
-    public ArrayList<Veiculo> lerVeiculos(String idCliente) {
+    public ArrayList<Veiculo> lerVeiculos(String idCliente, String nomeEstacionamento) {
         ArrayList<Veiculo> veiculos = new ArrayList<Veiculo>();
         String placa_veiculo;
 
@@ -44,7 +44,7 @@ public class VeiculoDAO {
 
             while (rs.next()) {
                 placa_veiculo = rs.getString("placa_veiculo");
-                veiculos.add(new Veiculo(placa_veiculo));
+                veiculos.add(new Veiculo(placa_veiculo, new UsoDeVagaDAO().lerUsosDeVaga(nomeEstacionamento, placa_veiculo)));
             }
 
             return veiculos;

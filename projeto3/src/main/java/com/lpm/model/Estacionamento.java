@@ -383,7 +383,7 @@ public class Estacionamento implements IEmpacotavel {
         return null;
     }
 
-    public void estacionar(String placa, String idVaga) {
+    public UsoDeVaga estacionar(String placa, String idVaga) {
         Iterator<Vaga> iteratorVaga = vagas.iterator();
         Vaga auxVaga;
 
@@ -392,14 +392,15 @@ public class Estacionamento implements IEmpacotavel {
         if (veiculo != null) {
             while (iteratorVaga.hasNext()) {
                 auxVaga = iteratorVaga.next();
-                if (auxVaga.getId() == idVaga) {
-                    veiculo.estacionar(auxVaga);
-                    break;
+                if (auxVaga.getId().equalsIgnoreCase(idVaga)) {
+                    return veiculo.estacionar(auxVaga);
                 }
             }
         } else {
             throw new Error("Erro: veiculo nao encontrado");
         }
+
+        return null;
     }
 
     public void sair(String placa) {

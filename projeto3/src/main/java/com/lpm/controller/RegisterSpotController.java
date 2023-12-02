@@ -2,6 +2,8 @@ package com.lpm.controller;
 
 import com.lpm.model.Estacionamento;
 import com.lpm.model.Vaga;
+import com.lpm.model.dao.UsoDeVagaDAO;
+import com.lpm.model.dao.VagaDAO;
 import com.lpm.view.RegisterSpot;
 
 import java.io.BufferedReader;
@@ -19,8 +21,8 @@ public class RegisterSpotController {
 
     public boolean registrar(String placa, String idVaga) {
         if(!estaEstacionado(placa)) {
-            estacionamentoAtual.estacionar(placa, idVaga);
-            estacionamentoAtual.gerar();
+            new UsoDeVagaDAO().cadastrarUsoDeVaga(estacionamentoAtual.estacionar(placa, idVaga), estacionamentoAtual.getNome(), placa);
+            new VagaDAO().atualizarEstadoVaga(idVaga, estacionamentoAtual.getNome());
             return true;
         } else {
             view.exibeMensagem("Erro: Veículo já se encontra estacionado. Tente novamente!");

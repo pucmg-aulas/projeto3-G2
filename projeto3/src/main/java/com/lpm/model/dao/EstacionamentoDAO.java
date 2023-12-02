@@ -1,5 +1,6 @@
 package com.lpm.model.dao;
 
+import com.lpm.model.Cliente;
 import com.lpm.model.ConexaoJDBC;
 import com.lpm.model.Estacionamento;
 
@@ -29,6 +30,7 @@ public class EstacionamentoDAO {
     }
 
     public Estacionamento lerEstacionamento(String nomeEstacionamento) {
+        Estacionamento estacionamentoAtual;
         String sql = "SELECT * FROM ESTACIONAMENTOS WHERE NOME_ESTACIONAMENTO = ?";
         int quantidade_fileiras, vagas_por_fileira;
 
@@ -44,7 +46,12 @@ public class EstacionamentoDAO {
             if(rs.next()) {
                 quantidade_fileiras = rs.getInt("quantidade_fileiras");
                 vagas_por_fileira = rs.getInt("vagas_por_fileira");
-                return new Estacionamento(nomeEstacionamento, quantidade_fileiras, vagas_por_fileira);
+                estacionamentoAtual = new Estacionamento(nomeEstacionamento, quantidade_fileiras, vagas_por_fileira);
+
+                estacionamentoAtual.setVagas(new VagaDAO().lerVagas(estacionamentoAtual.getNome()));
+                estacionamentoAtual.setClientes(new ClienteDAO().lerClientes(nomeEstacionamento));
+
+                return estacionamentoAtual;
             }
 
         } catch(SQLException e) {
@@ -74,13 +81,5 @@ public class EstacionamentoDAO {
             e.printStackTrace();
             return null;
         }
-    }
-
-    public void lerVagasEstacionamento(Estacionamento estacionamentoAtual) {
-        estacionamentoAtual.setVagas(new VagaDAO().lerVagas(estacionamentoAtual.getNome()));
-    }
-
-    public void lerClientesEstacionamento(Estacionamento estacionamentoAtual) {
-        estacionamentoAtual.setClientes(new ClienteDAO().lerClientes());
     }
 }

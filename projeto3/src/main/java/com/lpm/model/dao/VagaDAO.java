@@ -57,4 +57,19 @@ public class VagaDAO {
             return null;
         }
     }
+
+    public void atualizarEstadoVaga(String idVaga, String nomeEstacionamento) {
+        String sql = "UPDATE VAGAS SET ESTADO = NOT ESTADO WHERE ID_VAGA = ? AND NOME_ESTACIONAMENTO = ?";
+
+        try {
+            PreparedStatement ps = ConexaoJDBC.getConnection().prepareStatement(sql);
+
+            ps.setString(1, idVaga);
+            ps.setString(2, nomeEstacionamento);
+
+            ps.execute();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

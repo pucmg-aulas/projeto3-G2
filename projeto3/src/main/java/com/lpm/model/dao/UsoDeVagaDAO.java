@@ -78,4 +78,51 @@ public class UsoDeVagaDAO {
             return null;
         }
     }
+
+    public String[] consultarInfoUsoAtual(String idVaga, String nomeEstacionamento) {
+        String[] dados = new String[2];
+        String placa_veiculo, entrada;
+
+        String sql = "SELECT PLACA_VEICULO, ENTRADA FROM USOS_DE_VAGA WHERE ID_VAGA = ? AND NOME_ESTACIONAMENTO = ? AND SAIDA = 'null'";
+
+        try {
+            PreparedStatement ps = ConexaoJDBC.getConnection().prepareStatement(sql);
+
+            ps.setString(1, idVaga);
+            ps.setString(2, nomeEstacionamento);
+
+            ps.execute();
+
+            ResultSet rs = ps.getResultSet();
+
+            while(rs.next()) {
+                placa_veiculo = rs.getString("placa_veiculo");
+                entrada = rs.getString("entrada");
+
+                dados[0] = placa_veiculo;
+                dados[1] = entrada;
+            }
+
+            return dados;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void registrarSaida(String placa, String entrada, String saida) {
+        String sql = "UPDATE USOS_DE_VAGA SET SAIDA = ? WHERE PLACA_VEICULO = ? AND ENTRADA = ?";
+
+        try{
+            PreparedStatement ps = ConexaoJDBC.getConnection().prepareStatement(sql);
+
+            ps.setString(1, saida);
+            ps.setString(2, placa);
+            ps.setString(3, entrada);
+
+            ps.execute();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -27,10 +27,6 @@ public class LoadParkingController {
         if(nome != null) {
             Estacionamento estacionamentoAtual = new EstacionamentoDAO().lerEstacionamento(nome);
 
-            estacionamentoAtual.setVagas(new VagaDAO().lerVagas(nome));
-
-            estacionamentoAtual.setClientes(new ClienteDAO().lerClientes());
-
             view.exibeMensagem(nome + " lido com sucesso!\n");
 
             return estacionamentoAtual;

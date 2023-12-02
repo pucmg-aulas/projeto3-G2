@@ -28,7 +28,7 @@ public class ClienteDAO {
         }
     }
 
-    public ArrayList<Cliente> lerClientes() {
+    public ArrayList<Cliente> lerClientes(String nomeEstacionamento) {
         ArrayList<Cliente> clientes = new ArrayList<Cliente>();
         String id_cliente, nome;
         String sql = "SELECT * FROM CLIENTES";
@@ -43,7 +43,7 @@ public class ClienteDAO {
             while(rs.next()) {
                 id_cliente = rs.getString("id_cliente");
                 nome = rs.getString("nome");
-                clientes.add(new Cliente(id_cliente, nome));
+                clientes.add(new Cliente(id_cliente, nome, new VeiculoDAO().lerVeiculos(id_cliente, nomeEstacionamento)));
             }
 
             return clientes;

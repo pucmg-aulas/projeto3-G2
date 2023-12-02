@@ -26,13 +26,16 @@ public class Veiculo {
         this.usos = usos;
     }
 
-    public void estacionar(Vaga vaga) {
+    public UsoDeVaga estacionar(Vaga vaga) {
+        UsoDeVaga registroUso = new UsoDeVaga(vaga);
+
         try {
-            UsoDeVaga registroUso = new UsoDeVaga(vaga);
             usos.add(registroUso);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return registroUso;
     }
 
     public double sair() {
