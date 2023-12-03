@@ -30,7 +30,6 @@ public class ListClient extends JFrame {
         // Adiciona as colunas à tabela
         tableModel.addColumn("Nome");
         tableModel.addColumn("CPF");
-        tableModel.addColumn("Ações");
 
         // Adiciona os dados à tabela
         controller.popularTabela(tableModel);

@@ -6,7 +6,7 @@ import com.lpm.model.Estacionamento;
 import javax.swing.*;
 
 public class ListVehicles extends JFrame {
-    public ListVehicles(Estacionamento estacionamentoAtual, Cliente cliente) {
+    public ListVehicles(Estacionamento estacionamentoAtual) {
 
     }
 }

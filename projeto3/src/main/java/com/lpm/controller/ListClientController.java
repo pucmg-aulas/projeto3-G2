@@ -22,27 +22,11 @@ public class ListClientController {
     public void popularTabela(DefaultTableModel tableModel) {
         Iterator<Cliente> iteratorClientes = estacionamentoAtual.getClientes().iterator();
         Cliente auxCliente;
-        int counterRow = 0;
 
         while(iteratorClientes.hasNext()) {
             auxCliente = iteratorClientes.next();
 
             tableModel.addRow(new Object[]{auxCliente.getNome(), auxCliente.getId()});
-            tableModel.setValueAt(construirBotaoVeiculos(auxCliente), counterRow, 2);
-            counterRow++;
         }
-    }
-
-    private JButton construirBotaoVeiculos(Cliente cliente) {
-        JButton btnVeiculos = new JButton("Acessar");
-        btnVeiculos.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                view.dispose();
-                new ListVehicles(estacionamentoAtual, cliente).setVisible(true);
-            }
-        });
-
-        return btnVeiculos;
     }
 }

@@ -11,7 +11,7 @@ public class Client extends JFrame {
 
     private JButton btnCadastrar;
     private JPanel panel1;
-    private JButton btnRemover;
+    private JButton btnVeiculos;
     private JButton btnListagem;
     private JLabel labelClientes;
     private JButton btnVoltar;
@@ -47,6 +47,12 @@ public class Client extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose(); new HomeScreen(estacionamentoAtual).setVisible(true);
+            }
+        });
+        btnVeiculos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); new ListVehicles(estacionamentoAtual).setVisible(true);
             }
         });
     }
