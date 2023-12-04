@@ -46,10 +46,15 @@ public class ListClient extends JFrame {
 
         // Cria o listener das linhas da tabela
         tableClientes.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            int counter = 0; // counter auxiliar para ajudar a remover o buttonListener na hora correta
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if(!e.getValueIsAdjusting()) {
                     int selectedRow = tableClientes.getSelectedRow();
+
+                    if(counter >= 1 && btnVeiculos.getActionListeners().length != 0) { // testa se e' a segunda linha selecionada sem acoes e se existem listeners
+                        btnVeiculos.removeActionListener(btnVeiculos.getActionListeners()[0]); // remove o ultimo action listener
+                    }
 
                     if(selectedRow != -1) {
                         // Ativando o botao
@@ -72,6 +77,7 @@ public class ListClient extends JFrame {
                     } else {
                         btnVeiculos.setEnabled(false);
                     }
+                    counter++;
                 }
             }
         });
