@@ -88,7 +88,7 @@ public class ListClient extends JFrame {
         btnVoltar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose(); new Client(estacionamentoAtual).setVisible(true);
+                dispose(); new ClientMenu(estacionamentoAtual).setVisible(true);
             }
         });
     }

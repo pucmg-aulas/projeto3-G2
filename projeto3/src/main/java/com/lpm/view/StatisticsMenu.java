@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Statistcs extends JFrame {
+public class StatisticsMenu extends JFrame {
 
     private StatisticsController controller;
     private JPanel panel1;
@@ -21,7 +21,7 @@ public class Statistcs extends JFrame {
         return textAreaEstatisticas;
     }
 
-    public Statistcs(Estacionamento estacionamentoAtual) {
+    public StatisticsMenu(Estacionamento estacionamentoAtual) {
         this.controller = new StatisticsController(this, estacionamentoAtual);
 
         setTitle("Xulambs Parking");

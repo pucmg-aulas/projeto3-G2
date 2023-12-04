@@ -31,7 +31,7 @@ public class HomeScreen extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                new Client(estacionamentoAtual).setVisible(true);
+                new ClientMenu(estacionamentoAtual).setVisible(true);
             }
         });
 
@@ -39,7 +39,7 @@ public class HomeScreen extends JFrame {
         estatisticasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose(); new Statistcs(estacionamentoAtual).setVisible(true);
+                dispose(); new StatisticsMenu(estacionamentoAtual).setVisible(true);
             }
         });
     }

@@ -36,7 +36,7 @@ public class RegisterClient extends JFrame {
         btnCancelar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose(); new Client(estacionamentoAtual).setVisible(true);
+                dispose(); new ClientMenu(estacionamentoAtual).setVisible(true);
             }
         });
     }

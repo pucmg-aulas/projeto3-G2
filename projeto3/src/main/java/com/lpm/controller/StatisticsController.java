@@ -1,13 +1,13 @@
 package com.lpm.controller;
 
 import com.lpm.model.Estacionamento;
-import com.lpm.view.Statistcs;
+import com.lpm.view.StatisticsMenu;
 
 public class StatisticsController {
-    private final Statistcs view;
+    private final StatisticsMenu view;
     private Estacionamento estacionamentoAtual;
 
-    public StatisticsController(Statistcs view, Estacionamento estacionamentoAtual) {
+    public StatisticsController(StatisticsMenu view, Estacionamento estacionamentoAtual) {
         this.view = view; this.estacionamentoAtual = estacionamentoAtual;
     }
 

@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Client extends JFrame {
+public class ClientMenu extends JFrame {
 
     private JButton btnCadastrar;
     private JPanel panel1;
@@ -16,7 +16,7 @@ public class Client extends JFrame {
     private JLabel labelClientes;
     private JButton btnVoltar;
 
-    public Client(Estacionamento estacionamentoAtual) {
+    public ClientMenu(Estacionamento estacionamentoAtual) {
         setTitle("Xulambs Parking");
         labelClientes.setText("Clientes (" + estacionamentoAtual.getNome() + ")");
         setSize(400, 300);
