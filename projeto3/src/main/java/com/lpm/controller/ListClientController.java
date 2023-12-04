@@ -2,6 +2,7 @@ package com.lpm.controller;
 
 import com.lpm.model.Cliente;
 import com.lpm.model.Estacionamento;
+import com.lpm.model.dao.VeiculoDAO;
 import com.lpm.view.ListClient;
 import com.lpm.view.ListVehicles;
 
@@ -28,5 +29,9 @@ public class ListClientController {
 
             tableModel.addRow(new Object[]{auxCliente.getNome(), auxCliente.getId()});
         }
+    }
+
+    public boolean clienteTemVeiculos(String cpfCliente) {
+        return new VeiculoDAO().temVeiculos(cpfCliente);
     }
 }

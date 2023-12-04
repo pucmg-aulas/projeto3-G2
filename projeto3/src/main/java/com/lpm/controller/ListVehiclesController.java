@@ -4,6 +4,8 @@ import com.lpm.model.Cliente;
 import com.lpm.model.Estacionamento;
 import com.lpm.model.UsoDeVaga;
 import com.lpm.model.Veiculo;
+import com.lpm.model.dao.VeiculoDAO;
+import com.lpm.view.ListClient;
 import com.lpm.view.ListVehicles;
 
 import javax.swing.table.DefaultTableModel;
@@ -17,24 +19,29 @@ public class ListVehiclesController {
         this.view = view; this.estacionamentoAtual = estacionamentoAtual;
     }
 
-    public void popularTabela(DefaultTableModel tableModel) {
-        Cliente auxCliente;
+    public void popularTabela(DefaultTableModel tableModel, String cpfCliente) {
         Veiculo auxVeiculo;
+        ArrayList<Veiculo> auxVeiculos;
         ArrayList<UsoDeVaga> auxUsosVeiculo;
         UsoDeVaga auxUltimoUso;
 
-        Iterator<Veiculo> iteratorVeiculos = auxCliente.getVeiculos().iterator();
+        auxVeiculos = new VeiculoDAO().lerVeiculos(cpfCliente, estacionamentoAtual.getNome());
 
-        while(iteratorVeiculos.hasNext()) {
+        Iterator<Veiculo> iteratorVeiculos = auxVeiculos.iterator();
+
+        while (iteratorVeiculos.hasNext()) {
             auxVeiculo = iteratorVeiculos.next();
-
-            auxUsosVeiculo = auxVeiculo.getUsos();
-            auxUltimoUso = auxUsosVeiculo.get(auxUsosVeiculo.size()-1);
-            if(auxUltimoUso.getSaida() == null) {
-                tableModel.addRow(new Object[]{auxVeiculo.getPlaca(), auxUltimoUso.getVaga().getId() + ", " + estacionamentoAtual.getNome()});
-            } else {
-                tableModel.addRow(new Object[]{auxVeiculo.getPlaca(), "-"});
-            }
+             auxUsosVeiculo = auxVeiculo.getUsos();
+             if (!auxUsosVeiculo.isEmpty()) {
+                 auxUltimoUso = auxUsosVeiculo.get(auxUsosVeiculo.size() - 1);
+                 if (auxUltimoUso.getSaida() == null) {
+                     tableModel.addRow(new Object[]{auxVeiculo.getPlaca(), auxUltimoUso.getVaga().getId() + ", " + estacionamentoAtual.getNome()});
+                 } else {
+                     tableModel.addRow(new Object[]{auxVeiculo.getPlaca(), "-"});
+                 }
+             } else {
+                 tableModel.addRow(new Object[]{auxVeiculo.getPlaca(), "-"});
+             }
         }
     }
 }

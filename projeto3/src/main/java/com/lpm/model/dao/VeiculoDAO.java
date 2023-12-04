@@ -53,4 +53,28 @@ public class VeiculoDAO {
             return null;
         }
     }
+
+    public boolean temVeiculos(String cpfCliente) {
+        String sql = "SELECT MAX(ID_CLIENTE = ?) AS 'POSSUI_VEICULO' FROM VEICULOS";
+
+        try {
+            PreparedStatement ps = ConexaoJDBC.getConnection().prepareStatement(sql);
+
+            ps.setString(1, cpfCliente);
+
+            ps.execute();
+
+            ResultSet rs = ps.getResultSet();
+            rs.next();
+
+            if(rs.getInt("possui_veiculo") == 1) {
+                return true;
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return false;
+    }
 }

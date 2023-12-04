@@ -42,17 +42,10 @@ public class Client extends JFrame {
             }
         });
 
-
         btnVoltar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose(); new HomeScreen(estacionamentoAtual).setVisible(true);
-            }
-        });
-        btnVeiculos.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose(); new ListVehicles(estacionamentoAtual).setVisible(true);
             }
         });
     }
