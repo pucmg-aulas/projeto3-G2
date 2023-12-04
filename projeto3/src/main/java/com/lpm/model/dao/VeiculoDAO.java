@@ -77,4 +77,28 @@ public class VeiculoDAO {
 
         return false;
     }
+
+    public boolean veiculoRegistrado(String placa) {
+        String sql = "SELECT MAX(PLACA_VEICULO = ?) AS 'POSSUI_VEICULO' FROM VEICULOS";
+
+        try {
+            PreparedStatement ps = ConexaoJDBC.getConnection().prepareStatement(sql);
+
+            ps.setString(1, placa);
+
+            ps.execute();
+
+            ResultSet rs = ps.getResultSet();
+            rs.next();
+
+            if(rs.getInt("possui_veiculo") == 1) {
+                return true;
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return false;
+    }
 }

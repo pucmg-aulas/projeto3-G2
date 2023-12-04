@@ -59,4 +59,8 @@ public class RegisterSpot extends JFrame{
     public void exibeMensagem(String mensagem) {
         JOptionPane.showMessageDialog(null, mensagem);
     }
+
+    public int exibeDialogo(String mensagem) { // retorna a opcao escolhida
+        return JOptionPane.showConfirmDialog(this, mensagem, "Confirmação", JOptionPane.YES_NO_OPTION);
+    }
 }

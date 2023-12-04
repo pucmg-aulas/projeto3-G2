@@ -125,4 +125,28 @@ public class UsoDeVagaDAO {
             e.printStackTrace();
         }
     }
+
+    public boolean estaEstacionado(String placa) {
+        String sql = "SELECT MAX(PLACA_VEICULO = ? AND SAIDA = 'null') AS 'ESTA_ESTACIONADO' FROM USOS_DE_VAGA";
+
+        try {
+            PreparedStatement ps = ConexaoJDBC.getConnection().prepareStatement(sql);
+
+            ps.setString(1, placa);
+
+            ps.execute();
+
+            ResultSet rs = ps.getResultSet();
+            rs.next();
+
+            if(rs.getInt("esta_estacionado") == 1) {
+                return true;
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return false;
+    }
 }
