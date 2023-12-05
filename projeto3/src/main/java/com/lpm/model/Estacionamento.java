@@ -12,6 +12,14 @@ public class Estacionamento implements IEmpacotavel {
     private int quantFileiras;
     private int vagasPorFileira;
 
+    public void setClientes(ArrayList<Cliente> clientes) {
+        this.clientes = clientes;
+    }
+
+    public void setVagas(ArrayList<Vaga> vagas) {
+        this.vagas = vagas;
+    }
+
     public ArrayList<Cliente> getClientes() {
         return clientes;
     }
@@ -351,7 +359,7 @@ public class Estacionamento implements IEmpacotavel {
 
     private void gerarVagas() {
         char fileiraAtual = 'A';
-        int numVagaAtual = 0;
+        int numVagaAtual = 1;
         for (int i = 0; i < quantFileiras; i++) {
             for (int j = 0; j < vagasPorFileira; j++) {
                 vagas.add(new Vaga(fileiraAtual, numVagaAtual));
@@ -375,7 +383,7 @@ public class Estacionamento implements IEmpacotavel {
         return null;
     }
 
-    public void estacionar(String placa, String idVaga) {
+    public UsoDeVaga estacionar(String placa, String idVaga) {
         Iterator<Vaga> iteratorVaga = vagas.iterator();
         Vaga auxVaga;
 
@@ -384,14 +392,15 @@ public class Estacionamento implements IEmpacotavel {
         if (veiculo != null) {
             while (iteratorVaga.hasNext()) {
                 auxVaga = iteratorVaga.next();
-                if (auxVaga.getId() == idVaga) {
-                    veiculo.estacionar(auxVaga);
-                    break;
+                if (auxVaga.getId().equalsIgnoreCase(idVaga)) {
+                    return veiculo.estacionar(auxVaga);
                 }
             }
         } else {
             throw new Error("Erro: veiculo nao encontrado");
         }
+
+        return null;
     }
 
     public void sair(String placa) {

@@ -2,8 +2,13 @@ package com.lpm.controller;
 
 import com.lpm.model.Estacionamento;
 import com.lpm.model.Vaga;
+import com.lpm.model.dao.UsoDeVagaDAO;
+import com.lpm.model.dao.VagaDAO;
+import com.lpm.model.dao.VeiculoDAO;
 import com.lpm.view.RegisterSpot;
+import com.lpm.view.RegisterVehicle;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -18,33 +23,21 @@ public class RegisterSpotController {
     }
 
     public boolean registrar(String placa, String idVaga) {
-        if(!estaEstacionado(placa)) {
-            estacionamentoAtual.estacionar(placa, idVaga);
-            estacionamentoAtual.gerar();
-            return true;
+        if(new VeiculoDAO().veiculoRegistrado(placa)) {
+            if (!new UsoDeVagaDAO().estaEstacionado(placa)) {
+                new UsoDeVagaDAO().cadastrarUsoDeVaga(estacionamentoAtual.estacionar(placa, idVaga), estacionamentoAtual.getNome(), placa);
+                new VagaDAO().atualizarEstadoVaga(idVaga, estacionamentoAtual.getNome());
+                return true;
+            } else {
+                view.exibeMensagem("Erro: Veículo já se encontra estacionado. Tente novamente!");
+                view.getTextFieldPlaca().setText("");
+                return false;
+            }
         } else {
-            view.exibeMensagem("Erro: Veículo já se encontra estacionado. Tente novamente!");
-            view.getTextFieldPlaca().setText("");
+            if(view.exibeDialogo("Placa não encontrada na base de dados. Deseja registrar um novo veículo?") == JOptionPane.YES_OPTION) {
+                new RegisterVehicle(estacionamentoAtual, placa).setVisible(true);
+            }
             return false;
         }
-
-    }
-
-    private boolean estaEstacionado(String placa) {
-        String line;
-        String[] data;
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\projeto3\\db\\usoDeVagas.csv"));
-
-            while((line = br.readLine()) != null) {
-                data = line.split(",");
-                if(data[2].equalsIgnoreCase(placa)) {
-                    return true;
-                }
-            }
-        } catch(IOException e) {
-            throw new Error("Erro: nao foi possivel verificar se o veiculo ja esta estacionado. Tente novamente!");
-        }
-        return false;
     }
 }

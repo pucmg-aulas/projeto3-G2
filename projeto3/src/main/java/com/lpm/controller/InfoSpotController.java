@@ -1,57 +1,39 @@
 package com.lpm.controller;
 
 import com.lpm.model.Estacionamento;
+import com.lpm.model.Vaga;
+import com.lpm.model.dao.UsoDeVagaDAO;
+import com.lpm.model.dao.VagaDAO;
 import com.lpm.view.InfoSpot;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class InfoSpotController {
     InfoSpot view;
     Estacionamento estacionamentoAtual;
-    String idVeiculo;
-    String entrada;
-    String idVaga;
 
-    public String getIdVeiculo() {
-        return idVeiculo;
+    public InfoSpotController(InfoSpot view, Estacionamento estacionamentoAtual) {
+        this.view = view; this.estacionamentoAtual = estacionamentoAtual;
     }
 
-    public String getEntrada() {
-        return entrada;
+    public void buscarDadosUsoAtual(String idVaga) {
+        String[] dados = new UsoDeVagaDAO().consultarInfoUsoAtual(idVaga, estacionamentoAtual.getNome());
+
+        view.getLabelVeiculo().setText(dados[0]);
+        view.getLabelEntrada().setText(dados[1]);
     }
 
-    public InfoSpotController(InfoSpot view, Estacionamento estacionamentoAtual, String idVaga) {
-        this.view = view; this.estacionamentoAtual = estacionamentoAtual; this.idVaga = idVaga;
-    }
-
-    public void buscarDadosUsoAtual() {
-        String line;
-        String[] data;
-        try {
-            BufferedReader  br = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\projeto3\\db\\usoDeVagas.csv"));
-
-            while((line = br.readLine()) != null) {
-                data = line.split(",");
-                if(data[0].equalsIgnoreCase(this.estacionamentoAtual.getNome()) && data[1].equalsIgnoreCase(this.idVaga) && data[4].equalsIgnoreCase("null")) {
-                    this.idVeiculo = data[2];
-                    this.entrada = data[3];
-                    br.close();
-                    break;
-                }
-            }
-        } catch(IOException e) {
-            throw new Error("Erro: nao foi possivel encontrar os dados do uso da vaga!");
-        }
-    }
-
-    public void registrarSaida() {
+    public void registrarSaida(String idVaga) {
         double aPagar;
-        aPagar = estacionamentoAtual.procurarVeiculo(idVeiculo).sair();
+        aPagar = estacionamentoAtual.procurarVeiculo(view.getLabelVeiculo().getText()).sair();
+
+        // update nas tabelas
+        new VagaDAO().atualizarEstadoVaga(idVaga, estacionamentoAtual.getNome());
+        new UsoDeVagaDAO().registrarSaida(view.getLabelVeiculo().getText(), view.getLabelEntrada().getText(), LocalDateTime.now().toString());
 
         view.exibeMensagem("Vaga liberada! Faça a cobrança de R$" + aPagar + " ao cliente");
-
-        estacionamentoAtual.gerar();
     }
 }

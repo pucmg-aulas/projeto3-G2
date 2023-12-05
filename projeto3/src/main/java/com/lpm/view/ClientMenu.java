@@ -7,16 +7,16 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Client extends JFrame {
+public class ClientMenu extends JFrame {
 
     private JButton btnCadastrar;
     private JPanel panel1;
-    private JButton btnRemover;
+    private JButton btnVeiculos;
     private JButton btnListagem;
     private JLabel labelClientes;
     private JButton btnVoltar;
 
-    public Client(Estacionamento estacionamentoAtual) {
+    public ClientMenu(Estacionamento estacionamentoAtual) {
         setTitle("Xulambs Parking");
         labelClientes.setText("Clientes (" + estacionamentoAtual.getNome() + ")");
         setSize(400, 300);
@@ -41,7 +41,6 @@ public class Client extends JFrame {
                 dispose(); new ListClient(estacionamentoAtual).setVisible(true);
             }
         });
-
 
         btnVoltar.addActionListener(new ActionListener() {
             @Override

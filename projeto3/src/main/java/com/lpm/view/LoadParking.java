@@ -48,8 +48,4 @@ public class LoadParking extends JFrame {
         JOptionPane.showMessageDialog(null, mensagem);
     }
 
-    public static void main(String[] args) {
-        new LoadParking();
-    }
-
 }

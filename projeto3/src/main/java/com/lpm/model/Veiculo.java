@@ -26,13 +26,16 @@ public class Veiculo {
         this.usos = usos;
     }
 
-    public void estacionar(Vaga vaga) {
+    public UsoDeVaga estacionar(Vaga vaga) {
+        UsoDeVaga registroUso = new UsoDeVaga(vaga);
+
         try {
-            UsoDeVaga registroUso = new UsoDeVaga(vaga);
             usos.add(registroUso);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return registroUso;
     }
 
     public double sair() {
@@ -45,10 +48,15 @@ public class Veiculo {
 
     public double totalArrecadado() {
         Iterator<UsoDeVaga> iterator = usos.iterator();
+        UsoDeVaga auxUso;
         double result = 0.0;
 
         while(iterator.hasNext()) {
-            result = result + iterator.next().valorPago();
+            auxUso = iterator.next();
+
+            if(auxUso.getSaida() != null) {
+                result = result + auxUso.valorPago();
+            }
         }
 
         return result;

@@ -17,6 +17,18 @@ public class InfoSpot extends JFrame{
     private JPanel panel1;
     private final InfoSpotController controller;
 
+    public JLabel getLabelVeiculo() {
+        return labelVeiculo;
+    }
+
+    public JLabel getLabelEntrada() {
+        return labelEntrada;
+    }
+
+    public JLabel getLabelVaga() {
+        return labelVaga;
+    }
+
     public InfoSpot(Estacionamento estacionamentoAtual, Vaga vaga) {
         setTitle(estacionamentoAtual.getNome());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -25,16 +37,14 @@ public class InfoSpot extends JFrame{
 
         add(panel1);
 
-        controller = new InfoSpotController(this, estacionamentoAtual, vaga.getId());
+        controller = new InfoSpotController(this, estacionamentoAtual);
         labelVaga.setText("Vaga: " + vaga.getId());
-        controller.buscarDadosUsoAtual();
-        labelVeiculo.setText("Veículo: " + controller.getIdVeiculo());
-        labelEntrada.setText("Entrada: " + controller.getEntrada());
+        controller.buscarDadosUsoAtual(vaga.getId());
 
         btnSair.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.registrarSaida(); dispose(); new HomeScreen(estacionamentoAtual).setVisible(true);
+                controller.registrarSaida(vaga.getId()); dispose(); new HomeScreen(estacionamentoAtual).setVisible(true);
             }
         });
 

@@ -41,6 +41,8 @@ public class RegisterSpot extends JFrame{
                     if(controller.registrar(textFieldPlaca.getText(), vaga.getId())) {
                         dispose();
                         new HomeScreen(estacionamentoAtual).setVisible(true);
+                    } else {
+                        dispose();
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "Vaga indisponível!");
@@ -58,5 +60,9 @@ public class RegisterSpot extends JFrame{
 
     public void exibeMensagem(String mensagem) {
         JOptionPane.showMessageDialog(null, mensagem);
+    }
+
+    public int exibeDialogo(String mensagem) { // retorna a opcao escolhida
+        return JOptionPane.showConfirmDialog(this, mensagem, "Confirmação", JOptionPane.YES_NO_OPTION);
     }
 }
