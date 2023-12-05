@@ -6,7 +6,9 @@ import com.lpm.model.dao.UsoDeVagaDAO;
 import com.lpm.model.dao.VagaDAO;
 import com.lpm.model.dao.VeiculoDAO;
 import com.lpm.view.RegisterSpot;
+import com.lpm.view.RegisterVehicle;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -32,7 +34,10 @@ public class RegisterSpotController {
                 return false;
             }
         } else {
-
+            if(view.exibeDialogo("Placa não encontrada na base de dados. Deseja registrar um novo veículo?") == JOptionPane.YES_OPTION) {
+                new RegisterVehicle(estacionamentoAtual, placa).setVisible(true);
+            }
+            return false;
         }
     }
 }

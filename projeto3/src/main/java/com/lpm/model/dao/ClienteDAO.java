@@ -52,4 +52,25 @@ public class ClienteDAO {
             return null;
         }
     }
+
+    public Cliente buscarCliente(String cpfCliente) {
+        String sql = "SELECT NOME FROM CLIENTES WHERE ID_CLIENTE = ?";
+
+        try {
+            PreparedStatement ps = ConexaoJDBC.getConnection().prepareStatement(sql);
+
+            ps.setString(1, cpfCliente);
+
+            ps.execute();
+
+            ResultSet rs = ps.getResultSet();
+
+            rs.next();
+
+            return new Cliente(cpfCliente, rs.getString("id_cliente"));
+        } catch(SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

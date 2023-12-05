@@ -41,6 +41,8 @@ public class RegisterSpot extends JFrame{
                     if(controller.registrar(textFieldPlaca.getText(), vaga.getId())) {
                         dispose();
                         new HomeScreen(estacionamentoAtual).setVisible(true);
+                    } else {
+                        dispose();
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "Vaga indisponível!");
