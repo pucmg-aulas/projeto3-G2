@@ -48,10 +48,15 @@ public class Veiculo {
 
     public double totalArrecadado() {
         Iterator<UsoDeVaga> iterator = usos.iterator();
+        UsoDeVaga auxUso;
         double result = 0.0;
 
         while(iterator.hasNext()) {
-            result = result + iterator.next().valorPago();
+            auxUso = iterator.next();
+
+            if(auxUso.getSaida() != null) {
+                result = result + auxUso.valorPago();
+            }
         }
 
         return result;
